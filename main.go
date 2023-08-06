@@ -1,8 +1,8 @@
 package main
 
 import (
-	"go-ecommerce-app/internal/database"
-	"go-ecommerce-app/internal/server"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/database"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/server"
 	"log"
 )
 

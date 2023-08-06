@@ -3,8 +3,8 @@ package server
 import (
 	"errors"
 	"github.com/labstack/echo/v4"
-	"go-ecommerce-app/internal/generic/common_errors"
-	"go-ecommerce-app/internal/models"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/generic/common_errors"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/models"
 	"net/http"
 )
 

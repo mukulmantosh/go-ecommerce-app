@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 	"github.com/google/uuid"
-	"go-ecommerce-app/internal/generic/common_errors"
-	"go-ecommerce-app/internal/models"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/generic/common_errors"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/models"
 	"gorm.io/gorm"
 )
 

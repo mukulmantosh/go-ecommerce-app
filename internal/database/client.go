@@ -3,7 +3,7 @@ package database
 import (
 	"context"
 	"fmt"
-	"go-ecommerce-app/internal/models"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

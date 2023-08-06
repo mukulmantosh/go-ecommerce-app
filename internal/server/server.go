@@ -2,7 +2,7 @@ package server
 
 import (
 	"github.com/labstack/echo/v4"
-	"go-ecommerce-app/internal/database"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/database"
 	"log"
 )
 

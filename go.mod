@@ -1,4 +1,4 @@
-module go-ecommerce-app
+module github.com/mukulmantosh/go-ecommerce-app
 
 go 1.20
 
