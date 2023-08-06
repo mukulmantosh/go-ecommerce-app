@@ -7,8 +7,8 @@ type Product struct {
 	ProductID        string           `gorm:"primaryKey;uniqueIndex" json:"productId"`
 	Name             string           `json:"name"`
 	Description      string           `gorm:"size:255" json:"description"`
-	Category         Category         `gorm:"foreignKey:CategoryID;references:ProductID" json:"category"`
-	ProductInventory ProductInventory `gorm:"foreignKey:InventoryID;references:ProductID" json:"product_inventory"`
+	Category         Category         `gorm:"foreignKey:CategoryID;references:ProductID" json:"category,omitempty"`
+	ProductInventory ProductInventory `gorm:"foreignKey:InventoryID;references:ProductID" json:"product_inventory,omitempty"`
 }
 
 type Category struct {
