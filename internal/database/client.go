@@ -48,6 +48,9 @@ func (c Client) RunMigration() error {
 		&models.Product{},
 		&models.Category{},
 		&models.ProductInventory{},
+		&models.User{},
+		&models.UserAddress{},
+		&models.OrderSession{},
 	)
 	if err != nil {
 		return err
