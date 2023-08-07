@@ -11,13 +11,6 @@ type Product struct {
 	ProductInventory ProductInventory `gorm:"foreignKey:InventoryID;references:ProductID" json:"product_inventory,omitempty"`
 }
 
-type Category struct {
-	gorm.Model
-	CategoryID  string `gorm:"primaryKey;uniqueIndex" json:"categoryId"`
-	Name        string `json:"name"`
-	Description string `gorm:"size:255" json:"description"`
-}
-
 type ProductInventory struct {
 	InventoryID string `gorm:"primaryKey;uniqueIndex" json:"inventoryId"`
 	Name        string `json:"name"`
