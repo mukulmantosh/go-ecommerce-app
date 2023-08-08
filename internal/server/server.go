@@ -43,5 +43,6 @@ func (s *EchoServer) registerRoutes() {
 	productGroup.GET("", s.GetAllProducts)
 	productGroup.GET("/:id", s.GetProductById)
 	productGroup.POST("", s.AddProduct)
+	productGroup.PUT("/:id", s.UpdateProduct)
 
 }
