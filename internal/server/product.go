@@ -74,3 +74,12 @@ func (s *EchoServer) UpdateProduct(ctx echo.Context) error {
 	}
 	return ctx.JSON(http.StatusOK, err)
 }
+
+func (s *EchoServer) DeleteProduct(ctx echo.Context) error {
+	ID := ctx.Param("id")
+	err := s.DB.DeleteProduct(ctx.Request().Context(), ID)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	return ctx.NoContent(http.StatusResetContent)
+}

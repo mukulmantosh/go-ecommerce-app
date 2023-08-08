@@ -3,14 +3,13 @@ package server
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/database"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/server/abstract"
 	"log"
 )
 
 type Server interface {
 	Start() error
-	GetAllProducts(ctx echo.Context) error
-	AddProduct(ctx echo.Context) error
-	GetProductById(ctx echo.Context) error
+	abstract.Product
 }
 
 type EchoServer struct {
@@ -38,11 +37,11 @@ func (s *EchoServer) Start() error {
 }
 
 func (s *EchoServer) registerRoutes() {
-
 	productGroup := s.echo.Group("/products")
 	productGroup.GET("", s.GetAllProducts)
 	productGroup.GET("/:id", s.GetProductById)
 	productGroup.POST("", s.AddProduct)
 	productGroup.PUT("/:id", s.UpdateProduct)
+	productGroup.PUT("/:id", s.DeleteProduct)
 
 }

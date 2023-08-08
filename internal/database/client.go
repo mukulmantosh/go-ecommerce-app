@@ -1,8 +1,8 @@
 package database
 
 import (
-	"context"
 	"fmt"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/abstract"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -11,10 +11,7 @@ import (
 type DBClient interface {
 	Ready() bool
 	RunMigration() error
-	AllProducts(ctx context.Context) ([]models.Product, error)
-	AddProduct(ctx context.Context, product *models.Product) (*models.Product, error)
-	GetProductById(ctx context.Context, ID string) (*models.Product, error)
-	UpdateProduct(ctx context.Context, product *models.Product) (*models.Product, error)
+	abstract.Product
 }
 
 type Client struct {
