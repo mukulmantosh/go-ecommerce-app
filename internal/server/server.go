@@ -10,6 +10,7 @@ type Server interface {
 	Start() error
 	GetAllProducts(ctx echo.Context) error
 	AddProduct(ctx echo.Context) error
+	GetProductById(ctx echo.Context) error
 }
 
 type EchoServer struct {
@@ -40,6 +41,7 @@ func (s *EchoServer) registerRoutes() {
 
 	productGroup := s.echo.Group("/products")
 	productGroup.GET("", s.GetAllProducts)
+	productGroup.GET("/:id", s.GetProductById)
 	productGroup.POST("", s.AddProduct)
 
 }

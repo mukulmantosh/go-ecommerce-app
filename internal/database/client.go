@@ -13,6 +13,7 @@ type DBClient interface {
 	RunMigration() error
 	AllProducts(ctx context.Context) ([]models.Product, error)
 	AddProduct(ctx context.Context, product *models.Product) (*models.Product, error)
+	GetProductById(ctx context.Context, ID string) (*models.Product, error)
 }
 
 type Client struct {
