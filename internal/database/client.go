@@ -12,6 +12,7 @@ type DBClient interface {
 	Ready() bool
 	RunMigration() error
 	abstract.Product
+	abstract.User
 }
 
 type Client struct {

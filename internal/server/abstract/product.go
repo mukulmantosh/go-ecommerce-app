@@ -10,3 +10,7 @@ type Product interface {
 	GetProductById(ctx echo.Context) error
 	DeleteProduct(ctx echo.Context) error
 }
+
+type User interface {
+	AddUser(ctx echo.Context) error
+}

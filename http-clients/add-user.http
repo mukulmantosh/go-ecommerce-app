@@ -1,0 +1,10 @@
+# Runs in Goland
+POST localhost:8080/user
+Content-Type: application/json
+
+{
+  "username": "mukulmantosh",
+  "password": "mukul123",
+  "first_name": "mukul",
+  "last_name": "mantosh"
+}
