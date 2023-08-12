@@ -25,3 +25,18 @@ func (s *EchoServer) AddUser(ctx echo.Context) error {
 	}
 	return ctx.JSON(http.StatusCreated, user)
 }
+
+func (s *EchoServer) GetUserById(ctx echo.Context) error {
+	ID := ctx.Param("id")
+	user, err := s.DB.GetUserById(ctx.Request().Context(), ID)
+	if err != nil {
+		var notFoundError *common_errors.NotFoundError
+		switch {
+		case errors.As(err, &notFoundError):
+			return ctx.JSON(http.StatusNotFound, err)
+		default:
+			return ctx.JSON(http.StatusInternalServerError, err)
+		}
+	}
+	return ctx.JSON(http.StatusOK, user)
+}

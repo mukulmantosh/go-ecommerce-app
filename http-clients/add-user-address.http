@@ -1,0 +1,24 @@
+# curl --location 'localhost:8080/user/address'
+#--header 'Content-Type: application/json'
+#--data '{
+#    "address": "132, My Street, Kingston, New York",
+#    "city": "New York",
+#    "postal_code": "12401",
+#    "country": "USA",
+#    "mobile": "9999999999",
+#    "user_id": "53f968f2-4f55-46ad-abc2-b2227083cfc6" <-- foreign key to user
+#}'
+POST localhost:8080/user/address
+Content-Type: application/json
+
+{
+  "address": "132, My Street, Kingston, New York",
+  "city": "New York",
+  "postal_code": "12401",
+  "country": "USA",
+  "mobile": "9999999999",
+  "user_id": "5a59010c-cffa-407b-b6ff-fca7720ac468"
+}
+
+###
+

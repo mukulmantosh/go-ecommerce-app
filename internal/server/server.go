@@ -10,6 +10,8 @@ import (
 type Server interface {
 	Start() error
 	abstract.Product
+	abstract.User
+	abstract.UserAddress
 }
 
 type EchoServer struct {

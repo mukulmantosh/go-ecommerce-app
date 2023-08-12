@@ -13,6 +13,7 @@ type DBClient interface {
 	RunMigration() error
 	abstract.Product
 	abstract.User
+	abstract.UserAddress
 }
 
 type Client struct {
@@ -45,12 +46,14 @@ func (c Client) Ready() bool {
 
 func (c Client) RunMigration() error {
 	err := c.DB.AutoMigrate(
-		&models.Product{},
-		&models.Category{},
-		&models.ProductInventory{},
 		&models.User{},
 		&models.UserAddress{},
-		&models.OrderSession{},
+		//&models.Product{},
+		//&models.Category{},
+		//&models.ProductInventory{},
+		//&models.User{},
+		//&models.UserAddress{},
+		//&models.OrderSession{},
 	)
 	if err != nil {
 		return err

@@ -36,7 +36,7 @@ func (c Client) GetProductById(ctx context.Context, ID string) (*models.Product,
 			return nil, &common_errors.NotFoundError{}
 		}
 	}
-	return nil, result.Error
+	return product, result.Error
 }
 
 func (c Client) UpdateProduct(ctx context.Context, product *models.Product) (*models.Product, error) {
