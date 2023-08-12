@@ -7,4 +7,5 @@ import (
 
 type User interface {
 	AddUser(ctx context.Context, user *models.User) (*models.User, error)
+	AddUserAddress(ctx context.Context, userAddress *models.UserAddress) (*models.UserAddress, error)
 }

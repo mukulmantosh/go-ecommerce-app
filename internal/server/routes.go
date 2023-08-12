@@ -3,6 +3,7 @@ package server
 func (s *EchoServer) registerRoutes() {
 	productRoutes(s)
 	userRoutes(s)
+
 }
 
 func productRoutes(s *EchoServer) {
@@ -17,4 +18,5 @@ func productRoutes(s *EchoServer) {
 func userRoutes(s *EchoServer) {
 	userGroup := s.echo.Group("/user")
 	userGroup.POST("", s.AddUser)
+	userGroup.POST("/address", s.AddUserAddress)
 }
