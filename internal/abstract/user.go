@@ -8,6 +8,8 @@ import (
 type User interface {
 	AddUser(ctx context.Context, user *models.User) (*models.User, error)
 	GetUserById(ctx context.Context, ID string) (*models.User, error)
+	UpdateUser(ctx context.Context, user *models.User) (bool, error)
+	DeleteUser(ctx context.Context, ID string) error
 }
 
 type UserAddress interface {

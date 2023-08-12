@@ -33,28 +33,27 @@ func (c Client) GetUserById(ctx context.Context, ID string) (*models.User, error
 	return user, result.Error
 }
 
-//func (c Client) UpdateProduct(ctx context.Context, product *models.Product) (*models.Product, error) {
-//	var products []models.Product
-//	result := c.DB.WithContext(ctx).Clauses(clause.Returning{}).Where(
-//		&models.Product{
-//			Name:             product.Name,
-//			Description:      product.Description,
-//			Category:         product.Category,
-//			ProductInventory: product.ProductInventory,
-//		})
-//
-//	if result.Error != nil {
-//		if errors.Is(result.Error, gorm.ErrDuplicatedKey) {
-//			return nil, &common_errors.ConflictError{}
-//		}
-//		return nil, result.Error
-//	}
-//	if result.RowsAffected == 0 {
-//		return nil, &common_errors.NotFoundError{}
-//	}
-//	return &products[0], nil
-//}
-//
-//func (c Client) DeleteProduct(ctx context.Context, ID string) error {
-//	return c.DB.WithContext(ctx).Delete(&models.Product{ProductID: ID}).Error
-//}
+func (c Client) UpdateUser(ctx context.Context, user *models.User) (bool, error) {
+	result := c.DB.WithContext(ctx).Clauses(clause.Returning{}).
+		Where(&models.User{ID: user.ID}).Updates(
+		&models.User{
+			FirstName: user.FirstName,
+			LastName:  user.LastName,
+			Password:  user.Password,
+		})
+
+	if result.Error != nil {
+		if errors.Is(result.Error, gorm.ErrDuplicatedKey) {
+			return false, &common_errors.ConflictError{}
+		}
+		return false, result.Error
+	}
+	if result.RowsAffected == 0 {
+		return false, &common_errors.NotFoundError{}
+	}
+	return true, nil
+}
+
+func (c Client) DeleteUser(ctx context.Context, ID string) error {
+	return c.DB.WithContext(ctx).Delete(&models.User{ID: ID}).Error
+}

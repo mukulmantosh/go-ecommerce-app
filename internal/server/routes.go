@@ -19,5 +19,8 @@ func userRoutes(s *EchoServer) {
 	userGroup := s.echo.Group("/user")
 	userGroup.POST("", s.AddUser)
 	userGroup.GET("/:id", s.GetUserById)
+	userGroup.PUT("/:id", s.UpdateUser)
+	userGroup.DELETE("/:id", s.DeleteUser)
+
 	userGroup.POST("/address", s.AddUserAddress)
 }
