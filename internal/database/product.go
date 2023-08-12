@@ -17,7 +17,7 @@ func (c Client) AllProducts(ctx context.Context) ([]models.Product, error) {
 }
 
 func (c Client) AddProduct(ctx context.Context, product *models.Product) (*models.Product, error) {
-	product.ProductID = uuid.NewString()
+	product.ID = uuid.NewString()
 	result := c.DB.WithContext(ctx).Create(&product)
 	if result.Error != nil {
 		if errors.Is(result.Error, gorm.ErrDuplicatedKey) {
@@ -30,7 +30,7 @@ func (c Client) AddProduct(ctx context.Context, product *models.Product) (*model
 
 func (c Client) GetProductById(ctx context.Context, ID string) (*models.Product, error) {
 	product := &models.Product{}
-	result := c.DB.WithContext(ctx).Where(&models.Product{ProductID: ID}).First(&product)
+	result := c.DB.WithContext(ctx).Where(&models.Product{ID: ID}).First(&product)
 	if result.Error != nil {
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			return nil, &common_errors.NotFoundError{}
@@ -43,10 +43,9 @@ func (c Client) UpdateProduct(ctx context.Context, product *models.Product) (*mo
 	var products []models.Product
 	result := c.DB.WithContext(ctx).Clauses(clause.Returning{}).Where(
 		&models.Product{
-			Name:             product.Name,
-			Description:      product.Description,
-			Category:         product.Category,
-			ProductInventory: product.ProductInventory,
+			Name:        product.Name,
+			Description: product.Description,
+			Category:    product.Category,
 		})
 
 	if result.Error != nil {
@@ -62,5 +61,5 @@ func (c Client) UpdateProduct(ctx context.Context, product *models.Product) (*mo
 }
 
 func (c Client) DeleteProduct(ctx context.Context, ID string) error {
-	return c.DB.WithContext(ctx).Delete(&models.Product{ProductID: ID}).Error
+	return c.DB.WithContext(ctx).Delete(&models.Product{ID: ID}).Error
 }

@@ -48,9 +48,8 @@ func (c Client) RunMigration() error {
 	err := c.DB.AutoMigrate(
 		&models.User{},
 		&models.UserAddress{},
-		//&models.Product{},
-		//&models.Category{},
-		//&models.ProductInventory{},
+		&models.Product{},
+		&models.Category{},
 		//&models.OrderSession{},
 	)
 	if err != nil {

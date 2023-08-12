@@ -55,7 +55,7 @@ func (s *EchoServer) UpdateProduct(ctx echo.Context) error {
 	if err := ctx.Bind(product); err != nil {
 		return ctx.JSON(http.StatusUnsupportedMediaType, err)
 	}
-	if ID != product.ProductID {
+	if ID != product.ID {
 		return ctx.JSON(http.StatusBadRequest, "ID mismatch!")
 	}
 	product, err := s.DB.UpdateProduct(ctx.Request().Context(), product)
