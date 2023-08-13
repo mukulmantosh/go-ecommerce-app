@@ -3,6 +3,7 @@ module github.com/mukulmantosh/go-ecommerce-app
 go 1.21
 
 require (
+	github.com/go-faker/faker/v4 v4.1.1
 	github.com/google/uuid v1.3.0
 	github.com/labstack/echo/v4 v4.11.1
 	github.com/stretchr/testify v1.8.4

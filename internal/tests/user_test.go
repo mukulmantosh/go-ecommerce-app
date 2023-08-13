@@ -1,6 +1,8 @@
 package tests
 
 import (
+	"encoding/json"
+	"github.com/go-faker/faker/v4"
 	"github.com/labstack/echo/v4"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/server"
 	"github.com/stretchr/testify/assert"
@@ -10,20 +12,22 @@ import (
 	"testing"
 )
 
-var userJSON = `{
-  "username": "mukulbaba123",
-  "password": "mukul123",
-  "first_name": "mukul",
-  "last_name": "mantosh"
-}
-`
-
 func TestAddUser(t *testing.T) {
 	testDB, _ := setup()
+	type FakeUser struct {
+		Username  string `json:"username" faker:"username"`
+		Password  string `json:"password" faker:"word,unique"`
+		FirstName string `json:"first_name" faker:"first_name"`
+		LastName  string `json:"last_name" faker:"last_name"`
+	}
 
 	t.Run("should return 200 status ok", func(t *testing.T) {
+
+		var customUser FakeUser
+		_ = faker.FakeData(&customUser)
+		out, _ := json.Marshal(&customUser)
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodPost, "/user", strings.NewReader(userJSON))
+		req := httptest.NewRequest(http.MethodPost, "/user", strings.NewReader(string(out)))
 		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
