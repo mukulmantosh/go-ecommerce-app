@@ -11,9 +11,10 @@ import (
 type DBClient interface {
 	Ready() bool
 	RunMigration() error
-	abstract.Product
 	abstract.User
 	abstract.UserAddress
+	abstract.Product
+	abstract.Category
 }
 
 type Client struct {
@@ -48,9 +49,8 @@ func (c Client) RunMigration() error {
 	err := c.DB.AutoMigrate(
 		&models.User{},
 		&models.UserAddress{},
-		//&models.Product{},
-		//&models.Category{},
-		//&models.OrderSession{},
+		&models.Product{},
+		&models.Category{},
 	)
 	if err != nil {
 		return err

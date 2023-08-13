@@ -2,7 +2,17 @@ package server
 
 func (s *EchoServer) registerRoutes() {
 	productRoutes(s)
+	categoryRoutes(s)
 	userRoutes(s)
+
+}
+
+func categoryRoutes(s *EchoServer) {
+	categoryGroup := s.echo.Group("/category")
+	categoryGroup.POST("", s.AddCategory)
+	categoryGroup.GET("/:id", s.GetCategoryById)
+	categoryGroup.PUT("/:id", s.UpdateCategory)
+	categoryGroup.DELETE("/:id", s.DeleteCategory)
 
 }
 
