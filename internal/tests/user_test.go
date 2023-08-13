@@ -2,7 +2,6 @@ package tests
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/mukulmantosh/go-ecommerce-app/internal/database"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/server"
 	"github.com/stretchr/testify/assert"
 	"net/http"
@@ -10,8 +9,6 @@ import (
 	"strings"
 	"testing"
 )
-
-var testDb, _ = database.NewTestDBClient()
 
 var userJSON = `{
   "username": "mukulbaba123",
@@ -22,7 +19,7 @@ var userJSON = `{
 `
 
 func TestAddUser(t *testing.T) {
-	testDb.RunMigration()
+	testDB, _ := setup()
 
 	t.Run("should return 200 status ok", func(t *testing.T) {
 		e := echo.New()
@@ -30,10 +27,14 @@ func TestAddUser(t *testing.T) {
 		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
-		var service = server.NewServer(testDb)
+
+		var service = server.NewServer(testDB)
 		// Assertions
 		if assert.NoError(t, service.AddUser(c)) {
 			assert.Equal(t, http.StatusCreated, rec.Code)
 		}
+
+		teardown(testDB)
 	})
+
 }

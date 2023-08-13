@@ -12,6 +12,7 @@ import (
 type DBClient interface {
 	Ready() bool
 	RunMigration() error
+	CloseConnection()
 	abstract.User
 	abstract.UserAddress
 	abstract.Product
@@ -30,12 +31,13 @@ func NewDBClient() (DBClient, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	client := Client{DB: db}
 	return client, nil
 }
 
 func NewTestDBClient() (DBClient, error) {
-	db, err := gorm.Open(sqlite.Open("test-ecommerce.db"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
 		return nil, err
 	}
@@ -45,6 +47,7 @@ func NewTestDBClient() (DBClient, error) {
 }
 
 func (c Client) Ready() bool {
+
 	var ready string
 	result := c.DB.Raw("SELECT 1 as ready").Scan(&ready)
 	if result.Error != nil {
@@ -67,4 +70,12 @@ func (c Client) RunMigration() error {
 		return err
 	}
 	return nil
+}
+
+func (c Client) CloseConnection() {
+	sqlDB, _ := c.DB.DB()
+	err := sqlDB.Close()
+	if err != nil {
+		return
+	}
 }
