@@ -23,7 +23,9 @@ func (s *EchoServer) AddUser(ctx echo.Context) error {
 			return ctx.JSON(http.StatusInternalServerError, err)
 		}
 	}
-	return ctx.JSON(http.StatusCreated, user)
+	return ctx.JSON(http.StatusCreated,
+		map[string]interface{}{"message": "User Created Successfully !",
+			"data": map[string]interface{}{"user_id": user.ID}})
 }
 
 func (s *EchoServer) GetUserById(ctx echo.Context) error {

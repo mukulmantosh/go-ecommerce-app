@@ -6,8 +6,10 @@ import (
 	"github.com/google/uuid"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/generic/common_errors"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/models"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/utils"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
+	"log"
 )
 
 func (c Client) AddUser(ctx context.Context, user *models.User) (*models.User, error) {
@@ -34,12 +36,25 @@ func (c Client) GetUserById(ctx context.Context, ID string) (*models.User, error
 }
 
 func (c Client) UpdateUser(ctx context.Context, user *models.User) (bool, error) {
+	params := &utils.Params{
+		Memory:      64 * 1024,
+		Iterations:  3,
+		Parallelism: 2,
+		SaltLength:  16,
+		KeyLength:   32,
+	}
+
+	hash, err := utils.GenerateFromPassword(user.Password, params)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	result := c.DB.WithContext(ctx).Clauses(clause.Returning{}).
 		Where(&models.User{ID: user.ID}).Updates(
 		&models.User{
 			FirstName: user.FirstName,
 			LastName:  user.LastName,
-			Password:  user.Password,
+			Password:  hash,
 		})
 
 	if result.Error != nil {
