@@ -23,4 +23,7 @@ func userRoutes(s *EchoServer) {
 	userGroup.DELETE("/:id", s.DeleteUser)
 
 	userGroup.POST("/address", s.AddUserAddress)
+	userGroup.GET("/address/:id", s.GetUserAddressById)
+	userGroup.PUT("/address/:id", s.UpdateUserAddress)
+	userGroup.DELETE("/address/:id", s.DeleteUserAddress)
 }

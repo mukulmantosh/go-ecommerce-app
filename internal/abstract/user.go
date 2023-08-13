@@ -14,4 +14,7 @@ type User interface {
 
 type UserAddress interface {
 	AddUserAddress(ctx context.Context, userAddress *models.UserAddress) (*models.UserAddress, error)
+	GetUserAddressById(ctx context.Context, ID string) (*models.UserAddress, error)
+	UpdateUserAddress(ctx context.Context, userAddress *models.UserAddress) (bool, error)
+	DeleteUserAddress(ctx context.Context, ID string) error
 }

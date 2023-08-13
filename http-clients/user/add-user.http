@@ -1,4 +1,3 @@
-# Runs in Goland
 POST localhost:8080/user
 Content-Type: application/json
 

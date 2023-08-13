@@ -10,4 +10,7 @@ type User interface {
 
 type UserAddress interface {
 	AddUserAddress(ctx echo.Context) error
+	GetUserAddressById(ctx echo.Context) error
+	UpdateUserAddress(ctx echo.Context) error
+	DeleteUserAddress(ctx echo.Context) error
 }

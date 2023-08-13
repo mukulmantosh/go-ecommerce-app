@@ -1,0 +1,3 @@
+# curl --location --request DELETE 'localhost:8080/user/08dd0b34-1c7f-4849-b252-122d0c3c53b9' <- user_id
+DELETE localhost:8080/user/08dd0b34-1c7f-4849-b252-122d0c3c53b9
+
