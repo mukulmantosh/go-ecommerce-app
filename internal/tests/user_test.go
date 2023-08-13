@@ -11,25 +11,26 @@ import (
 	"testing"
 )
 
+var testDb, _ = database.NewTestDBClient()
+
 var userJSON = `{
-  "username": "mukulbasasaba111",
+  "username": "mukulbaba123",
   "password": "mukul123",
   "first_name": "mukul",
   "last_name": "mantosh"
 }
 `
 
-var testDb, _ = database.NewDBClient()
-var service = server.NewServer(testDb)
-
 func TestAddUser(t *testing.T) {
+	testDb.RunMigration()
+
 	t.Run("should return 200 status ok", func(t *testing.T) {
 		e := echo.New()
 		req := httptest.NewRequest(http.MethodPost, "/user", strings.NewReader(userJSON))
 		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
-
+		var service = server.NewServer(testDb)
 		// Assertions
 		if assert.NoError(t, service.AddUser(c)) {
 			assert.Equal(t, http.StatusCreated, rec.Code)

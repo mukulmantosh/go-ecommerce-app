@@ -5,6 +5,7 @@ import (
 	"github.com/mukulmantosh/go-ecommerce-app/internal/abstract"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/models"
 	"gorm.io/driver/postgres"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
@@ -31,6 +32,16 @@ func NewDBClient() (DBClient, error) {
 	}
 	client := Client{DB: db}
 	return client, nil
+}
+
+func NewTestDBClient() (DBClient, error) {
+	db, err := gorm.Open(sqlite.Open("test-ecommerce.db"), &gorm.Config{})
+	if err != nil {
+		return nil, err
+	}
+	client := Client{DB: db}
+	return client, nil
+
 }
 
 func (c Client) Ready() bool {
