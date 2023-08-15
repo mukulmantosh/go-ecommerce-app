@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 )
 
-func setup() (database.DBClient, error) {
+func Setup() (database.DBClient, error) {
 	slog.Info("Initializing Setup..")
 	testDb, err := database.NewTestDBClient()
 	err = testDb.RunMigration()
@@ -17,7 +17,7 @@ func setup() (database.DBClient, error) {
 	return testDb, err
 }
 
-func teardown(testDB database.DBClient) {
+func Teardown(testDB database.DBClient) {
 	slog.Info("Removing TestDB...")
 	testDB.CloseConnection()
 	currentDirectory, _ := os.Getwd()

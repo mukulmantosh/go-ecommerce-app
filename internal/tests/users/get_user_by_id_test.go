@@ -1,19 +1,21 @@
-package tests
+package users
 
 import (
 	"encoding/json"
 	"github.com/go-faker/faker/v4"
 	"github.com/labstack/echo/v4"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/server"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/tests"
 	"github.com/stretchr/testify/assert"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
 )
 
-func TestAddUser(t *testing.T) {
-	testDB, _ := setup()
+func TestGetUserById(t *testing.T) {
+	testDB, _ := tests.Setup()
 	type FakeUser struct {
 		Username  string `json:"username" faker:"username"`
 		Password  string `json:"password" faker:"word,unique"`
@@ -21,7 +23,16 @@ func TestAddUser(t *testing.T) {
 		LastName  string `json:"last_name" faker:"last_name"`
 	}
 
-	t.Run("should return 200 status ok", func(t *testing.T) {
+	type DataObj struct {
+		UserID  string `json:"user_id"`
+		Message string `json:"message"`
+	}
+	type UserResponse struct {
+		Data DataObj `json:"data"`
+	}
+
+	t.Run("should return user by id", func(t *testing.T) {
+		var service = server.NewServer(testDB)
 
 		var customUser FakeUser
 		_ = faker.FakeData(&customUser)
@@ -32,13 +43,29 @@ func TestAddUser(t *testing.T) {
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 
-		var service = server.NewServer(testDB)
 		// Assertions
 		if assert.NoError(t, service.AddUser(c)) {
 			assert.Equal(t, http.StatusCreated, rec.Code)
 		}
 
-		teardown(testDB)
+		var userResp UserResponse
+		data, _ := io.ReadAll(rec.Body)
+		err := json.Unmarshal(data, &userResp)
+		if err != nil {
+			return
+		}
+		userId := userResp.Data.UserID
+
+		newReq := httptest.NewRequest(http.MethodGet, "/user/"+userId, nil)
+		newReq.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		newRec := httptest.NewRecorder()
+		getContext := e.NewContext(newReq, newRec)
+
+		// Assertions
+		if assert.NoError(t, service.GetUserById(getContext)) {
+			assert.Equal(t, http.StatusOK, newRec.Code)
+		}
+		tests.Teardown(testDB)
 	})
 
 }
