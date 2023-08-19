@@ -4,7 +4,13 @@ func (s *EchoServer) registerRoutes() {
 	productRoutes(s)
 	categoryRoutes(s)
 	userRoutes(s)
+	cartRoutes(s)
 
+}
+
+func cartRoutes(s *EchoServer) {
+	categoryGroup := s.echo.Group("/cart")
+	categoryGroup.POST("/add-user", s.CreateNewCart)
 }
 
 func categoryRoutes(s *EchoServer) {

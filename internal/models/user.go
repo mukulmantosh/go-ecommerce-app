@@ -14,6 +14,7 @@ type User struct {
 	FirstName string        `json:"first_name"`
 	LastName  string        `json:"last_name"`
 	Address   []UserAddress `gorm:"foreignKey:UserID;references:ID" json:"address"`
+	Cart      Cart          `gorm:"foreignKey:UserID;references:ID" json:"cart"`
 }
 
 type UserAddress struct {
