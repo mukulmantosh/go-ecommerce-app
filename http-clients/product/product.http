@@ -1,0 +1,20 @@
+# curl --location 'localhost:8080/products'
+#--header 'Content-Type: application/json'
+#--data '{
+#    "name": "IPhone 14",
+#    "description": "The iPhone 14 and iPhone 14 Plus are smartphones designed, developed, and marketed by Apple Inc. They are the sixteenth and latest generation of iPhones",
+#    "quantity": 20,
+#    "category_id": "4d3e7c6e-5f43-43fe-ad7a-1553ad1e3f73" # <<-- you will receive when you create a new category
+#}'
+POST localhost:8080/products
+Content-Type: application/json
+
+{
+  "name": "IPhone 14",
+  "description": "The iPhone 14 and iPhone 14 Plus are smartphones designed, developed, and marketed by Apple Inc. They are the sixteenth and latest generation of iPhones",
+  "quantity": 20,
+  "category_id": "4d3e7c6e-5f43-43fe-ad7a-1553ad1e3f73"
+}
+
+###
+
