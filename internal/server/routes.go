@@ -11,6 +11,8 @@ func (s *EchoServer) registerRoutes() {
 func cartRoutes(s *EchoServer) {
 	categoryGroup := s.echo.Group("/cart")
 	categoryGroup.POST("/add-user", s.CreateNewCart)
+	categoryGroup.POST("/", s.AddItemToCart)
+
 }
 
 func categoryRoutes(s *EchoServer) {

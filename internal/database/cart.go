@@ -20,3 +20,17 @@ func (c Client) NewCartForUser(ctx context.Context, cart *models.Cart) (*models.
 	}
 	return cart, nil
 }
+
+func (c Client) AddItemToCart(ctx context.Context, cartId string, productId string) (bool, error) {
+	var cartInfo models.Cart
+	var productInfo models.Product
+	c.DB.WithContext(ctx).Where(&models.Cart{ID: cartId}).First(&cartInfo)
+	c.DB.WithContext(ctx).Where(&models.Product{ID: productId}).First(&productInfo)
+
+	err := c.DB.WithContext(ctx).Model(&cartInfo).Association("Products").Append(&models.Product{ID: productInfo.ID})
+	if err != nil {
+		return false, err
+	}
+
+	return true, err
+}

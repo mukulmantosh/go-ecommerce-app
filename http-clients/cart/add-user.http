@@ -8,7 +8,7 @@ POST localhost:8080/cart/add-user
 Content-Type: application/json
 
 {
-  "user_id": "13315282-428f-400e-b987-f3218b263af5",
+  "user_id": "908bb787-30a0-47fc-9899-2c80b04d1746",
   "total": 0
 }
 
