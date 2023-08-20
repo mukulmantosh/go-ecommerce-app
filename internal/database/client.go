@@ -65,8 +65,8 @@ func (c Client) RunMigration() error {
 		&models.User{},
 		&models.UserAddress{},
 		&models.Cart{},
-		&models.Product{},
 		&models.Category{},
+		&models.Product{},
 	)
 	if err != nil {
 		return err

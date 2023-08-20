@@ -45,7 +45,6 @@ func (c Client) UpdateProduct(ctx context.Context, product *models.Product) (*mo
 		&models.Product{
 			Name:        product.Name,
 			Description: product.Description,
-			Category:    product.Category,
 		})
 
 	if result.Error != nil {
