@@ -1,5 +1,7 @@
 package server
 
+import echojwt "github.com/labstack/echo-jwt/v4"
+
 func (s *EchoServer) registerRoutes() {
 	productRoutes(s)
 	categoryRoutes(s)
@@ -16,6 +18,7 @@ func loginRoute(s *EchoServer) {
 
 func cartRoutes(s *EchoServer) {
 	categoryGroup := s.echo.Group("/cart")
+	categoryGroup.Use(echojwt.WithConfig(JWTConfig()))
 	categoryGroup.POST("/add-user", s.CreateNewCart)
 	categoryGroup.POST("/", s.AddItemToCart)
 
@@ -31,6 +34,7 @@ func categoryRoutes(s *EchoServer) {
 }
 
 func productRoutes(s *EchoServer) {
+
 	productGroup := s.echo.Group("/products")
 	productGroup.GET("", s.GetAllProducts)
 	productGroup.GET("/:id", s.GetProductById)

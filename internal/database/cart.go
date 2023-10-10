@@ -34,3 +34,11 @@ func (c Client) AddItemToCart(ctx context.Context, cartId string, productId stri
 
 	return true, err
 }
+
+func (c Client) GetCartInfoByUserID(ctx context.Context, userId string) (*models.Cart, int64, error) {
+	var cartInfo models.Cart
+	var cartPresent int64
+	c.DB.WithContext(ctx).Where(&models.Cart{UserID: userId}).First(&cartInfo).Count(&cartPresent)
+	return &cartInfo, cartPresent, nil
+
+}
