@@ -5,7 +5,13 @@ func (s *EchoServer) registerRoutes() {
 	categoryRoutes(s)
 	userRoutes(s)
 	cartRoutes(s)
+	loginRoute(s)
 
+}
+
+func loginRoute(s *EchoServer) {
+	authGroup := s.echo.Group("/auth")
+	authGroup.POST("/login", s.UserLogin)
 }
 
 func cartRoutes(s *EchoServer) {

@@ -13,6 +13,7 @@ type DBClient interface {
 	Ready() bool
 	RunMigration() error
 	CloseConnection()
+	abstract.Authenticate
 	abstract.User
 	abstract.UserAddress
 	abstract.Product

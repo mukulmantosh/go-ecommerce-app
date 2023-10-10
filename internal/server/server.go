@@ -12,6 +12,7 @@ type Server interface {
 	abstract.Product
 	abstract.User
 	abstract.UserAddress
+	abstract.Login
 }
 
 type EchoServer struct {
