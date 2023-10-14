@@ -8,6 +8,7 @@ func (s *EchoServer) registerRoutes() {
 	userRoutes(s)
 	cartRoutes(s)
 	loginRoute(s)
+	orderRoutes(s)
 
 }
 
@@ -54,4 +55,10 @@ func userRoutes(s *EchoServer) {
 	userGroup.GET("/address/:id", s.GetUserAddressById)
 	userGroup.PUT("/address/:id", s.UpdateUserAddress)
 	userGroup.DELETE("/address/:id", s.DeleteUserAddress)
+}
+
+func orderRoutes(s *EchoServer) {
+	orderGroup := s.echo.Group("/order")
+	orderGroup.Use(echojwt.WithConfig(JWTConfig()))
+	orderGroup.POST("/initiate", s.NewOrder)
 }

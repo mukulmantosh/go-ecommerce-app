@@ -10,10 +10,11 @@ POST localhost:8080/products
 Content-Type: application/json
 
 {
-  "name": "IPhone 14",
-  "description": "The iPhone 14 and iPhone 14 Plus are smartphones designed, developed, and marketed by Apple Inc. They are the sixteenth and latest generation of iPhones",
+  "name": "IPhone 15",
+  "description": "Iphone 15",
   "quantity": 20,
-  "category_id": "d723d41c-e51f-4690-ae9a-ecfb46a391ed"
+  "price": 999,
+  "category_id": "f61040f5-c291-4e38-a506-c86fc423eb64"
 }
 
 ###

@@ -19,6 +19,7 @@ type DBClient interface {
 	abstract.Product
 	abstract.Category
 	abstract.Cart
+	abstract.Order
 }
 
 type Client struct {
@@ -68,6 +69,7 @@ func (c Client) RunMigration() error {
 		&models.Cart{},
 		&models.Category{},
 		&models.Product{},
+		&models.Order{},
 	)
 	if err != nil {
 		return err
