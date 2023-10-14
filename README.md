@@ -40,6 +40,16 @@ Before launching the application, be certain to configure the necessary environm
 - DB_NAME
 - DB_PORT
 ```
+Using Windows?
+
+```
+- set JWT_SECRET=***********
+- set DB_HOST=***********
+- set DB_USERNAME=***********
+- set DB_PASSWORD=***********
+- set DB_NAME=***********
+- set DB_PORT=***********
+```
 
 ### Application Startup
 
