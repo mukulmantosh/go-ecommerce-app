@@ -10,7 +10,7 @@ minimalistic design.
 
 
 
-## Prerequisites
+### Prerequisites
 
 Before starting up this project, make sure you have the necessary dependencies installed in your machine.
 
@@ -24,8 +24,40 @@ Before starting up this project, make sure you have the necessary dependencies i
 
 
 
-
-
-
-# Database Schema
+### Database Schema
 ![db_schema](./misc/ecommerce-db-design.png)
+
+
+### Environment Variables
+
+Before launching the application, be certain to configure the necessary environment variables.
+
+```
+- JWT_SECRET
+- DB_HOST
+- DB_USERNAME
+- DB_PASSWORD
+- DB_NAME
+- DB_PORT
+```
+
+### Application Startup
+
+#### Running App
+
+```bash
+make run
+```
+
+#### Building App
+
+```bash
+make build
+```
+
+#### Executing Tests
+
+```bash
+make test
+```
+
