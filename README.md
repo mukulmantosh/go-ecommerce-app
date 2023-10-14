@@ -40,7 +40,7 @@ Before launching the application, be certain to configure the necessary environm
 - DB_NAME
 - DB_PORT
 ```
-Using Windows?
+Using **Windows**? Run the following command
 
 ![windows-env](./misc/windows-env.png)
 
