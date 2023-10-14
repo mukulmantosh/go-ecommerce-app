@@ -12,7 +12,11 @@ import (
 
 func (c Client) OrderPlacement(ctx context.Context, userId string) (*models.Order, error) {
 	var cartDetails models.Cart
-	c.DB.WithContext(ctx).Preload("Products").Where(&models.Cart{UserID: userId}).Find(&cartDetails)
+	var cartExist int64
+	c.DB.WithContext(ctx).Preload("Products").Where(&models.Cart{UserID: userId}).Find(&cartDetails).Count(&cartExist)
+	if cartExist == 0 {
+		return nil, nil
+	}
 	productCost := 0.0
 	order := new(models.Order)
 	order.ID = uuid.NewString()
