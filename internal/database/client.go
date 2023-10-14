@@ -7,6 +7,9 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"log"
+	"os"
+	"strconv"
 )
 
 type DBClient interface {
@@ -27,8 +30,18 @@ type Client struct {
 }
 
 func NewDBClient() (DBClient, error) {
+	dbHost := os.Getenv("DB_HOST")
+	dbUsername := os.Getenv("DB_USERNAME")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+	dbPort := os.Getenv("DB_PORT")
+	databasePort, err := strconv.Atoi(dbPort)
+	if err != nil {
+		log.Fatal("Invalid DB Port")
+	}
+
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=%s",
-		"localhost", "postgres", "mukul123", "ecommerce", 5432, "disable")
+		dbHost, dbUsername, dbPassword, dbName, databasePort, "disable")
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {

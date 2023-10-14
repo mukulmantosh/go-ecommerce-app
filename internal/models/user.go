@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/utils"
 	"gorm.io/gorm"
@@ -52,7 +51,6 @@ func (u User) AfterCreate(tx *gorm.DB) (err error) {
 		SaltLength:  16,
 		KeyLength:   32,
 	}
-	fmt.Println("password ", u.Password)
 	hash, err := utils.GenerateFromPassword(u.Password, params)
 	if err != nil {
 		log.Fatal(err)
@@ -62,7 +60,6 @@ func (u User) AfterCreate(tx *gorm.DB) (err error) {
 }
 
 func (l Login) VerifyPassword(hashPassword string) (match bool, err error) {
-	fmt.Println(l.Password, hashPassword)
 	match, err = utils.ComparePasswordAndHash(l.Password, hashPassword)
 	if err != nil {
 		return false, err
