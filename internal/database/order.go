@@ -10,12 +10,12 @@ import (
 	"gorm.io/gorm/clause"
 )
 
-func (c Client) OrderPlacement(ctx context.Context, userId string) (*models.Order, error) {
+func (c Client) OrderPlacement(ctx context.Context, userId string) (bool, error) {
 	var cartDetails models.Cart
 	var cartExist int64
 	c.DB.WithContext(ctx).Preload("Products").Where(&models.Cart{UserID: userId}).Find(&cartDetails).Count(&cartExist)
 	if cartExist == 0 {
-		return nil, nil
+		return false, &common_errors.CartEmptyError{}
 	}
 	productCost := 0.0
 	order := new(models.Order)
@@ -24,16 +24,16 @@ func (c Client) OrderPlacement(ctx context.Context, userId string) (*models.Orde
 	result := c.DB.WithContext(ctx).Create(&order)
 	if result.Error != nil {
 		if errors.Is(result.Error, gorm.ErrDuplicatedKey) {
-			return nil, &common_errors.ConflictError{}
+			return false, &common_errors.ConflictError{}
 		}
-		return nil, result.Error
+		return false, result.Error
 	}
 
 	for _, product := range cartDetails.Products {
 		productCost += product.Price
 		err := c.DB.WithContext(ctx).Model(&order).Association("Products").Append(&models.Product{ID: product.ID})
 		if err != nil {
-			return nil, err
+			return false, err
 		}
 	}
 
@@ -51,5 +51,5 @@ func (c Client) OrderPlacement(ctx context.Context, userId string) (*models.Orde
 
 	// Soft-delete cart
 	c.DB.Delete(&models.Cart{}, &cartDetails.ID)
-	return nil, nil
+	return true, nil
 }

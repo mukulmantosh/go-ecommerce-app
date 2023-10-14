@@ -10,7 +10,7 @@ import (
 func (s *EchoServer) UserLogin(ctx echo.Context) error {
 	login := new(models.Login)
 	if err := ctx.Bind(login); err != nil {
-		return ctx.JSON(http.StatusUnsupportedMediaType, err)
+		return ctx.JSON(http.StatusUnsupportedMediaType, map[string]any{"error": err.Error()})
 	}
 	token, err := s.DB.Login(ctx.Request().Context(), login)
 	if err != nil {

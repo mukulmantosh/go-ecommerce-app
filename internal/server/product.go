@@ -11,7 +11,7 @@ import (
 func (s *EchoServer) GetAllProducts(ctx echo.Context) error {
 	products, err := s.DB.AllProducts(ctx.Request().Context())
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, err)
+		return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 	}
 	return ctx.JSON(http.StatusOK, products)
 }
@@ -19,16 +19,16 @@ func (s *EchoServer) GetAllProducts(ctx echo.Context) error {
 func (s *EchoServer) AddProduct(ctx echo.Context) error {
 	product := new(models.Product)
 	if err := ctx.Bind(product); err != nil {
-		return ctx.JSON(http.StatusUnsupportedMediaType, err)
+		return ctx.JSON(http.StatusUnsupportedMediaType, map[string]any{"error": err.Error()})
 	}
 	product, err := s.DB.AddProduct(ctx.Request().Context(), product)
 	if err != nil {
 		var conflictError *common_errors.ConflictError
 		switch {
 		case errors.As(err, &conflictError):
-			return ctx.JSON(http.StatusConflict, err)
+			return ctx.JSON(http.StatusConflict, map[string]any{"error": err.Error()})
 		default:
-			return ctx.JSON(http.StatusInternalServerError, err)
+			return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 		}
 	}
 	return ctx.JSON(http.StatusCreated, product)
@@ -41,9 +41,9 @@ func (s *EchoServer) GetProductById(ctx echo.Context) error {
 		var notFoundError *common_errors.NotFoundError
 		switch {
 		case errors.As(err, &notFoundError):
-			return ctx.JSON(http.StatusNotFound, err)
+			return ctx.JSON(http.StatusNotFound, map[string]any{"error": err.Error()})
 		default:
-			return ctx.JSON(http.StatusInternalServerError, err)
+			return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 		}
 	}
 	return ctx.JSON(http.StatusOK, product)
@@ -53,7 +53,7 @@ func (s *EchoServer) UpdateProduct(ctx echo.Context) error {
 	ID := ctx.Param("id")
 	product := new(models.Product)
 	if err := ctx.Bind(product); err != nil {
-		return ctx.JSON(http.StatusUnsupportedMediaType, err)
+		return ctx.JSON(http.StatusUnsupportedMediaType, map[string]any{"error": err.Error()})
 	}
 	if ID != product.ID {
 		return ctx.JSON(http.StatusBadRequest, "ID mismatch!")
@@ -65,11 +65,11 @@ func (s *EchoServer) UpdateProduct(ctx echo.Context) error {
 
 		switch {
 		case errors.As(err, &notFoundError):
-			return ctx.JSON(http.StatusNotFound, err)
+			return ctx.JSON(http.StatusNotFound, map[string]any{"error": err.Error()})
 		case errors.As(err, &conflictError):
-			return ctx.JSON(http.StatusConflict, err)
+			return ctx.JSON(http.StatusConflict, map[string]any{"error": err.Error()})
 		default:
-			return ctx.JSON(http.StatusInternalServerError, err)
+			return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 		}
 	}
 	return ctx.JSON(http.StatusOK, err)
@@ -79,7 +79,7 @@ func (s *EchoServer) DeleteProduct(ctx echo.Context) error {
 	ID := ctx.Param("id")
 	err := s.DB.DeleteProduct(ctx.Request().Context(), ID)
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, err)
+		return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 	}
 	return ctx.NoContent(http.StatusResetContent)
 }

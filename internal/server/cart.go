@@ -12,16 +12,16 @@ import (
 func (s *EchoServer) CreateNewCart(ctx echo.Context) error {
 	cart := new(models.Cart)
 	if err := ctx.Bind(cart); err != nil {
-		return ctx.JSON(http.StatusUnsupportedMediaType, err)
+		return ctx.JSON(http.StatusUnsupportedMediaType, map[string]any{"error": err.Error()})
 	}
 	cart, err := s.DB.NewCartForUser(ctx.Request().Context(), cart)
 	if err != nil {
 		var conflictError *common_errors.ConflictError
 		switch {
 		case errors.As(err, &conflictError):
-			return ctx.JSON(http.StatusConflict, err)
+			return ctx.JSON(http.StatusConflict, map[string]any{"error": err.Error()})
 		default:
-			return ctx.JSON(http.StatusInternalServerError, err)
+			return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 		}
 	}
 	return ctx.JSON(http.StatusCreated,
@@ -36,12 +36,12 @@ func (s *EchoServer) AddItemToCart(ctx echo.Context) error {
 	userId := claims.UserID
 
 	if err := ctx.Bind(product); err != nil {
-		return ctx.JSON(http.StatusUnsupportedMediaType, err)
+		return ctx.JSON(http.StatusUnsupportedMediaType, map[string]any{"error": err.Error()})
 	}
 
 	if len(product.ProductID) == 0 {
 		return ctx.JSON(http.StatusBadRequest,
-			map[string]interface{}{"message": "Missing Product ID!"})
+			map[string]any{"message": "Missing Product ID!"})
 	}
 
 	cartData, cartExist, err := s.DB.GetCartInfoByUserID(ctx.Request().Context(), userId)
@@ -58,9 +58,9 @@ func (s *EchoServer) AddItemToCart(ctx echo.Context) error {
 			var conflictError *common_errors.ConflictError
 			switch {
 			case errors.As(err, &conflictError):
-				return ctx.JSON(http.StatusConflict, err)
+				return ctx.JSON(http.StatusConflict, map[string]any{"error": err.Error()})
 			default:
-				return ctx.JSON(http.StatusInternalServerError, err)
+				return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 			}
 		}
 
@@ -78,6 +78,6 @@ func (s *EchoServer) AddItemToCart(ctx echo.Context) error {
 	}
 
 	return ctx.JSON(http.StatusCreated,
-		map[string]interface{}{"message": "Item Added to Cart!"})
+		map[string]any{"message": "Item Added to Cart!"})
 
 }

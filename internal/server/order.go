@@ -14,17 +14,19 @@ func (s *EchoServer) NewOrder(ctx echo.Context) error {
 	claims := user.Claims.(*models.CustomJWTClaims)
 	userId := claims.UserID
 
-	placement, err := s.DB.OrderPlacement(ctx.Request().Context(), userId)
+	_, err := s.DB.OrderPlacement(ctx.Request().Context(), userId)
 	if err != nil {
 		var conflictError *common_errors.ConflictError
+		var cartEmptyError *common_errors.CartEmptyError
 		switch {
 		case errors.As(err, &conflictError):
-			return ctx.JSON(http.StatusConflict, err)
+			return ctx.JSON(http.StatusConflict, map[string]any{"error": err.Error()})
+		case errors.As(err, &cartEmptyError):
+			return ctx.JSON(http.StatusNotFound, map[string]any{"error": err.Error()})
 		default:
-			return ctx.JSON(http.StatusInternalServerError, err)
+			return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 		}
 	}
-	_ = placement
 
 	return ctx.JSON(http.StatusOK, map[string]interface{}{"message": "Thank you, Order Placed!"})
 }

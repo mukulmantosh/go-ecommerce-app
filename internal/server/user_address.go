@@ -11,7 +11,7 @@ import (
 func (s *EchoServer) AddUserAddress(ctx echo.Context) error {
 	userAddress := new(models.UserAddress)
 	if err := ctx.Bind(userAddress); err != nil {
-		return ctx.JSON(http.StatusUnsupportedMediaType, err)
+		return ctx.JSON(http.StatusUnsupportedMediaType, map[string]any{"error": err.Error()})
 	}
 	userAddress, err := s.DB.AddUserAddress(ctx.Request().Context(), userAddress)
 	if err != nil {
@@ -19,11 +19,11 @@ func (s *EchoServer) AddUserAddress(ctx echo.Context) error {
 		var violationError *common_errors.ViolationError
 		switch {
 		case errors.As(err, &conflictError):
-			return ctx.JSON(http.StatusConflict, err)
+			return ctx.JSON(http.StatusConflict, map[string]any{"error": err.Error()})
 		case errors.As(err, &violationError):
-			return ctx.JSON(http.StatusConflict, err)
+			return ctx.JSON(http.StatusConflict, map[string]any{"error": err.Error()})
 		default:
-			return ctx.JSON(http.StatusInternalServerError, err)
+			return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 		}
 	}
 	return ctx.JSON(http.StatusCreated, userAddress)
@@ -36,9 +36,9 @@ func (s *EchoServer) GetUserAddressById(ctx echo.Context) error {
 		var notFoundError *common_errors.NotFoundError
 		switch {
 		case errors.As(err, &notFoundError):
-			return ctx.JSON(http.StatusNotFound, err)
+			return ctx.JSON(http.StatusNotFound, map[string]any{"error": err.Error()})
 		default:
-			return ctx.JSON(http.StatusInternalServerError, err)
+			return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 		}
 	}
 	return ctx.JSON(http.StatusOK, userAddress)
@@ -48,7 +48,7 @@ func (s *EchoServer) UpdateUserAddress(ctx echo.Context) error {
 	ID := ctx.Param("id")
 	userAddress := new(models.UserAddress)
 	if err := ctx.Bind(userAddress); err != nil {
-		return ctx.JSON(http.StatusUnsupportedMediaType, err)
+		return ctx.JSON(http.StatusUnsupportedMediaType, map[string]any{"error": err.Error()})
 	}
 	userAddressInfo, _ := s.DB.GetUserAddressById(ctx.Request().Context(), ID)
 
@@ -66,11 +66,11 @@ func (s *EchoServer) UpdateUserAddress(ctx echo.Context) error {
 
 		switch {
 		case errors.As(err, &notFoundError):
-			return ctx.JSON(http.StatusNotFound, err)
+			return ctx.JSON(http.StatusNotFound, map[string]any{"error": err.Error()})
 		case errors.As(err, &conflictError):
-			return ctx.JSON(http.StatusConflict, err)
+			return ctx.JSON(http.StatusConflict, map[string]any{"error": err.Error()})
 		default:
-			return ctx.JSON(http.StatusInternalServerError, err)
+			return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 		}
 	}
 	if updateUser == true {
@@ -84,7 +84,7 @@ func (s *EchoServer) DeleteUserAddress(ctx echo.Context) error {
 	ID := ctx.Param("id")
 	err := s.DB.DeleteUserAddress(ctx.Request().Context(), ID)
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, err)
+		return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 	}
 	return ctx.NoContent(http.StatusResetContent)
 }
