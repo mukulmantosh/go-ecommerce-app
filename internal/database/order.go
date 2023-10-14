@@ -31,7 +31,10 @@ func (c Client) OrderPlacement(ctx context.Context, userId string) (*models.Orde
 
 	for _, product := range cartDetails.Products {
 		productCost += product.Price
-		c.DB.WithContext(ctx).Model(&order).Association("Products").Append(&models.Product{ID: product.ID})
+		err := c.DB.WithContext(ctx).Model(&order).Association("Products").Append(&models.Product{ID: product.ID})
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	c.DB.WithContext(ctx).Clauses(clause.Returning{}).Where(
