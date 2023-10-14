@@ -42,14 +42,8 @@ Before launching the application, be certain to configure the necessary environm
 ```
 Using Windows?
 
-```
-- set JWT_SECRET=***********
-- set DB_HOST=***********
-- set DB_USERNAME=***********
-- set DB_PASSWORD=***********
-- set DB_NAME=***********
-- set DB_PORT=***********
-```
+![windows-env](./misc/windows-env.png)
+
 
 ### Application Startup
 
@@ -58,16 +52,20 @@ Using Windows?
 ```bash
 make run
 ```
+![run-app](./misc/run-app.png)
 
 #### Building App
 
 ```bash
 make build
 ```
+![build-app](./misc/build-app.png)
+
 
 #### Executing Tests
 
 ```bash
 make test
 ```
+![test-app](./misc/test-app.png)
 
