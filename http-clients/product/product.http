@@ -10,11 +10,10 @@ POST localhost:8080/products
 Content-Type: application/json
 
 {
-  "name": "IPhone 14",
-  "description": "Iphone 14",
-  "quantity": 20,
-  "price": 1999,
-  "category_id": "a82919be-39ba-4887-9360-7e6511fc482a"
+  "name": "IPhone 15",
+  "description": "Iphone 15",
+  "price": 2999,
+  "category_id": "db84a7e2-d248-4cb1-9f5b-d265160d91ac"
 }
 
 ###
