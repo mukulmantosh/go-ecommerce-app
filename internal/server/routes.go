@@ -61,4 +61,5 @@ func orderRoutes(s *EchoServer) {
 	orderGroup := s.echo.Group("/order")
 	orderGroup.Use(echojwt.WithConfig(JWTConfig()))
 	orderGroup.POST("/initiate", s.NewOrder)
+	orderGroup.GET("/list", s.ListOrders)
 }

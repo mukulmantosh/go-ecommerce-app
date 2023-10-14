@@ -53,3 +53,9 @@ func (c Client) OrderPlacement(ctx context.Context, userId string) (bool, error)
 	c.DB.Delete(&models.Cart{}, &cartDetails.ID)
 	return true, nil
 }
+
+func (c Client) OrderList(ctx context.Context, userId string) ([]models.Order, error) {
+	var orders []models.Order
+	result := c.DB.WithContext(ctx).Preload("Products").Where(&models.Order{UserID: userId}).Find(&orders)
+	return orders, result.Error
+}

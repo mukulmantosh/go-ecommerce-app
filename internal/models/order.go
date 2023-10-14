@@ -11,7 +11,7 @@ type Cart struct {
 
 type Order struct {
 	gorm.Model
-	ID          string    `gorm:"primaryKey" json:"orderId"`
+	ID          string    `gorm:"primaryKey" json:"ID"`
 	Total       float32   `gorm:"default:0" json:"total"`
 	UserID      string    `json:"user_id"`
 	OrderStatus string    `json:"order_status"`
