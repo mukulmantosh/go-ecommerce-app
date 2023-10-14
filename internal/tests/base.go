@@ -10,6 +10,9 @@ import (
 func Setup() (database.DBClient, error) {
 	slog.Info("Initializing Setup..")
 	testDb, err := database.NewTestDBClient()
+	if err != nil {
+		panic(err)
+	}
 	err = testDb.RunMigration()
 	if err != nil {
 		return nil, err
