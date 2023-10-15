@@ -73,7 +73,7 @@ func (s *EchoServer) UpdateCategory(ctx echo.Context) error {
 			return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 		}
 	}
-	if updateUser == true {
+	if updateUser {
 		return ctx.JSON(http.StatusOK, "Category Information Updated!")
 	}
 

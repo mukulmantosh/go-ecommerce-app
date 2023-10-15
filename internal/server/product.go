@@ -58,7 +58,7 @@ func (s *EchoServer) UpdateProduct(ctx echo.Context) error {
 	if ID != product.ID {
 		return ctx.JSON(http.StatusBadRequest, "ID mismatch!")
 	}
-	product, err := s.DB.UpdateProduct(ctx.Request().Context(), product)
+	_, err := s.DB.UpdateProduct(ctx.Request().Context(), product)
 	if err != nil {
 		var notFoundError *common_errors.NotFoundError
 		var conflictError *common_errors.ConflictError
@@ -72,7 +72,7 @@ func (s *EchoServer) UpdateProduct(ctx echo.Context) error {
 			return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 		}
 	}
-	return ctx.JSON(http.StatusOK, err)
+	return ctx.JSON(http.StatusOK, map[string]any{"message": "Updated!"})
 }
 
 func (s *EchoServer) DeleteProduct(ctx echo.Context) error {

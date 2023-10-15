@@ -19,7 +19,7 @@ func (c Client) Login(ctx context.Context, user *models.Login) (string, error) {
 		if err != nil {
 			return "", &common_errors.NotFoundError{}
 		}
-		if passwordMatch != true {
+		if !passwordMatch {
 			return "", &common_errors.NotFoundError{}
 		} else {
 			// return JWT token
