@@ -1,2 +1,7 @@
 misc
 .idea
+k8s
+http-clients
+README.md
+Makefile
+.gitignore
