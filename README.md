@@ -22,6 +22,7 @@ Before starting up this project, make sure you have the necessary dependencies i
 
 - [x] [PostgreSQL](https://www.postgresql.org/) - The World's Most Advanced Open Source Relational Database
 
+- [x] [golangci-lint](https://golangci-lint.run/) - is a fast Go linters runner. It runs linters in parallel, uses caching, supports yaml config, etc.  
 
 
 ### Database Schema
