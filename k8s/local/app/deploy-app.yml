@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-ecommerce-deploy
+  namespace: go-ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-ecommerce-app
+  template:
+    metadata:
+      labels:
+        app: go-ecommerce-app
+    spec:
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+      containers:
+        - image: ecommerce
+          imagePullPolicy: Never
+          name: go-ecomm-container
+          envFrom:
+            - configMapRef:
+                name: app-cm
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: "/data/db"
+              name: postgres-storage

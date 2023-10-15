@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-secret-credentials
+  namespace: go-ecommerce
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: "ecommerce"
+  POSTGRES_USER: "sample"
+  POSTGRES_PASSWORD: "sample123"

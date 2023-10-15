@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: go-ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresdb
+  template:
+    metadata:
+      labels:
+        app: postgresdb
+    spec:
+      containers:
+        - name: postgresdb
+          image: postgres:16.0
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: db-secret-credentials
+          volumeMounts:
+            - mountPath: /var/lib/postgres/data
+              name: db-data
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+            claimName: postgres-pvc

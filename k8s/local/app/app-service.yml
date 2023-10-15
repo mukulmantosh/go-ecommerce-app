@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+  namespace: go-ecommerce
+  labels:
+    app: app-svc
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30004
+  selector:
+    app: go-ecommerce-app
