@@ -69,3 +69,8 @@ make test
 ```
 ![test-app](./misc/test-app.png)
 
+#### Docker
+
+Image is available in DockerHub https://hub.docker.com/repository/docker/mukulmantosh/go-ecommerce-echo/general
+TODO: make it public
+
