@@ -25,6 +25,11 @@ Before starting up this project, make sure you have the necessary dependencies i
 - [x] [golangci-lint](https://golangci-lint.run/) - is a fast Go linters runner. It runs linters in parallel, uses caching, supports yaml config, etc.  
 
 
+For running Postgres locally using Docker, run the following command: 
+
+```bash
+docker run --name ecommerce-local-db -p 5432:5432 -e POSTGRES_PASSWORD=******** -d postgres
+```
 ### Database Schema
 ![db_schema](./misc/ecommerce-db-design.png)
 
