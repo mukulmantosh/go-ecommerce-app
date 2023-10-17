@@ -30,6 +30,12 @@ For running Postgres locally using Docker, run the following command:
 ```bash
 docker run --name ecommerce-local-db -p 5432:5432 -e POSTGRES_PASSWORD=******** -d postgres
 ```
+
+Execute in Postgres DB Shell
+
+```sql
+create database ecommerce;
+```
 ### Database Schema
 ![db_schema](./misc/ecommerce-db-design.png)
 
