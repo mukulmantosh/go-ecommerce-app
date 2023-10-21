@@ -6,5 +6,3 @@ metadata:
 spec:
   type: ExternalName
   externalName: 10.15.112.3
-  ports:
-    - port: 5432
