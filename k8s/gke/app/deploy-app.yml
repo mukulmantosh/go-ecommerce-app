@@ -4,7 +4,7 @@ metadata:
   name: go-ecommerce-deploy
   namespace: go-ecommerce
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: go-ecommerce-app
