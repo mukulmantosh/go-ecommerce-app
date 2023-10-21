@@ -5,3 +5,4 @@ postman_httpclient
 README.md
 Makefile
 .gitignore
+bin
