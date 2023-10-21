@@ -7,7 +7,6 @@ import (
 	"github.com/mukulmantosh/go-ecommerce-app/internal/generic/common_errors"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/models"
 	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
 )
 
 func (c Client) AllProducts(ctx context.Context) ([]models.Product, error) {
@@ -39,13 +38,9 @@ func (c Client) GetProductById(ctx context.Context, ID string) (*models.Product,
 	return product, result.Error
 }
 
-func (c Client) UpdateProduct(ctx context.Context, product *models.Product) (*models.Product, error) {
-	var products []models.Product
-	result := c.DB.WithContext(ctx).Clauses(clause.Returning{}).Where(
-		&models.Product{
-			Name:        product.Name,
-			Description: product.Description,
-		})
+func (c Client) UpdateProduct(ctx context.Context, product *models.UpdateProduct, productId string) (*models.Product, error) {
+	result := c.DB.WithContext(ctx).Model(&models.Product{ID: productId}).Select("Name",
+		"Description").Updates(models.Product{Name: product.Name, Description: product.Description})
 
 	if result.Error != nil {
 		if errors.Is(result.Error, gorm.ErrDuplicatedKey) {
@@ -56,7 +51,7 @@ func (c Client) UpdateProduct(ctx context.Context, product *models.Product) (*mo
 	if result.RowsAffected == 0 {
 		return nil, &common_errors.NotFoundError{}
 	}
-	return &products[0], nil
+	return nil, nil
 }
 
 func (c Client) DeleteProduct(ctx context.Context, ID string) error {

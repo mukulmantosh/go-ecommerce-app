@@ -11,6 +11,11 @@ type Product struct {
 	CategoryID  string  `json:"category_id"`
 }
 
+type UpdateProduct struct {
+	Name        string `json:"name"`
+	Description string `gorm:"size:255" json:"description"`
+}
+
 type ProductParams struct {
 	ProductID string `json:"productID"`
 }

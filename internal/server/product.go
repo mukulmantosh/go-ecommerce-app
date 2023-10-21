@@ -51,14 +51,11 @@ func (s *EchoServer) GetProductById(ctx echo.Context) error {
 
 func (s *EchoServer) UpdateProduct(ctx echo.Context) error {
 	ID := ctx.Param("id")
-	product := new(models.Product)
-	if err := ctx.Bind(product); err != nil {
+	productUpdate := new(models.UpdateProduct)
+	if err := ctx.Bind(productUpdate); err != nil {
 		return ctx.JSON(http.StatusUnsupportedMediaType, map[string]any{"error": err.Error()})
 	}
-	if ID != product.ID {
-		return ctx.JSON(http.StatusBadRequest, "ID mismatch!")
-	}
-	_, err := s.DB.UpdateProduct(ctx.Request().Context(), product)
+	_, err := s.DB.UpdateProduct(ctx.Request().Context(), productUpdate, ID)
 	if err != nil {
 		var notFoundError *common_errors.NotFoundError
 		var conflictError *common_errors.ConflictError
