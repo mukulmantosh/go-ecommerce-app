@@ -1,4 +1,4 @@
-name: Generate code coverage badge
+name: Code Coverage
 on:
   push:
     branches:
