@@ -6,8 +6,6 @@ lint:
 	@golangci-lint run
 test:
 	@go test -v ./...
-coverage:
-	@go test ./... -coverprofile=./cover.out
-
-
-
+cover:
+	@go test -v ./... -covermode=atomic -coverpkg=./... -coverprofile coverage.out
+	@go tool cover -func=coverage.out -o=coverage.out
