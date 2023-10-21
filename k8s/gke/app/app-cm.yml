@@ -5,7 +5,7 @@ metadata:
   namespace: go-ecommerce
 data:
   JWT_SECRET: "secret"
-  DB_HOST: "db-service"
+  DB_HOST: "database-service"
   DB_USERNAME: "postgres"
   DB_PASSWORD: "sample123"
   DB_NAME: "ecommerce"
