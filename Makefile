@@ -7,5 +7,5 @@ lint:
 test:
 	@go test -v ./...
 cover:
-	@go test -v ./... -covermode=count -coverprofile=coverage.out
-	@go tool cover -func=coverage.out -o=coverage.out
+	@go test -v ./... -covermode=count -coverpkg=./... -coverprofile coverage.out
+
