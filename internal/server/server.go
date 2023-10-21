@@ -5,6 +5,7 @@ import (
 	"github.com/mukulmantosh/go-ecommerce-app/internal/database"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/server/abstract"
 	"log"
+	"log/slog"
 )
 
 type Server interface {
@@ -31,6 +32,7 @@ func NewServer(db database.DBClient) Server {
 }
 
 func (s *EchoServer) Start() error {
+	slog.Info("serving at port 8080")
 	err := s.echo.Start(":8080")
 	if err != nil {
 		log.Fatalf("Server Issue: %s", err)

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-cm
+  namespace: go-ecommerce
+data:
+  JWT_SECRET: "secret"
+  DB_HOST: "db-service"
+  DB_USERNAME: "postgres"
+  DB_PASSWORD: "sample123"
+  DB_NAME: "ecommerce"
+  DB_PORT: "5432"
+

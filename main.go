@@ -4,9 +4,11 @@ import (
 	"github.com/mukulmantosh/go-ecommerce-app/internal/database"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/server"
 	"log"
+	"log/slog"
 )
 
 func main() {
+	slog.Info("Initializing....")
 	db, err := database.NewDBClient()
 	if err != nil {
 		log.Fatalf("Failed DB Startup: %s\n", err)
@@ -18,7 +20,6 @@ func main() {
 		log.Fatalf("Migration Failed: %s\n", err)
 		return
 	}
-
 	service := server.NewServer(db)
 	log.Fatal(service.Start())
 
