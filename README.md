@@ -1,4 +1,5 @@
 # Ecommerce App using Echo
+![Coverage](https://img.shields.io/badge/Coverage-0.0%25-red)
 
 We intend to develop an e-commerce application with a REST
 architecture using the Echo framework. Echo is a Go web framework
