@@ -22,7 +22,6 @@ jobs:
       - name: Run Test
         run: |
           make cover
-          go tool cover -func=coverage.out -o=coverage.out
 
       - name: Go Coverage Badge  # Pass the `coverage.out` output to this action
         uses: tj-actions/coverage-badge-go@v2
