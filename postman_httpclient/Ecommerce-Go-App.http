@@ -1,0 +1,181 @@
+# Ecommerce-Go-App
+
+###
+# group: User
+# @name Add User
+POST {{hostUrl}}/user
+Content-Type: application/json
+
+{
+  "username": "mukul",
+  "password": "mukul123",
+  "first_name": "mukul",
+  "last_name": "mantosh"
+}
+
+
+###
+# group: User
+# @name Get User By ID
+GET {{hostUrl}}/user/{{userId}}
+
+###
+# group: User
+# @name Update User By ID
+PUT {{hostUrl}}/user/{{userId}}
+Content-Type: application/json
+
+{
+  "password": "mukul123456",
+  "first_name": "MUKUL",
+  "last_name": "MANTOSH"
+}
+
+###
+# group: User
+# @name Delete User By ID
+DELETE {{hostUrl}}/user/{{userId}}
+
+###
+# group: User
+# @name New User Address
+POST {{hostUrl}}/user/address
+Content-Type: application/json
+
+{
+  "address": "132, My Street, Kingston, New York",
+  "city": "New York",
+  "postal_code": "12401",
+  "country": "USA",
+  "mobile": "9999999999",
+  "user_id": "{{userId}}"
+}
+
+###
+# group: User
+# @name Get UserAddress By ID
+GET {{hostUrl}}/user/address/<AddressID>
+
+###
+# group: User
+# @name Update UserAddress By ID
+PUT {{hostUrl}}/user/address/<AddressID>
+Content-Type: application/json
+
+{
+  "address": "King Street, Kingston, New York",
+  "city": "NEW YORK",
+  "postal_code": "12401",
+  "country": "United States of America",
+  "mobile": "122345666"
+}
+
+###
+# group: User
+# @name Update UserAddress By ID Copy
+DELETE {{hostUrl}}/user/address/<AddressID>
+
+###
+# group: Authorization
+# @name Login
+POST {{hostUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "mukul",
+  "password": "mukul123"
+}
+
+###
+# group: Product
+# @name Add New Product
+POST {{hostUrl}}/products
+Content-Type: application/json
+
+{
+  "name": "IPhone 15",
+  "description": "Iphone 15",
+  "price": 2999,
+  "category_id": "<GET_THE_CATEGORY_ID>"
+}
+
+###
+# group: Product
+# @name Get All Products
+GET {{hostUrl}}/products
+
+###
+# group: Product
+# @name Get Product By ID
+GET {{hostUrl}}/products/<productID>
+
+###
+# group: Product
+# @name Update Product By ID
+PUT {{hostUrl}}/products/<productID>
+Content-Type: application/json
+
+{
+  "name": "IPHONE 15",
+  "description": "Newphoria. Dynamic Island. 48MP Main camera with 2x Telephoto"
+}
+
+###
+# group: Product
+# @name Delete Product By ID
+DELETE {{hostUrl}}/products/<productID>
+
+###
+# group: Category
+# @name Add New Category
+POST {{hostUrl}}/category
+Content-Type: application/json
+
+{
+  "name": "Electronics",
+  "description": "Electronics - Mobile Devices"
+}
+
+###
+# group: Category
+# @name Get Category by ID
+GET {{hostUrl}}/category/<CategoryID>
+
+###
+# group: Category
+# @name Update Category by ID
+PUT {{hostUrl}}/category/<CategoryID>
+Content-Type: application/json
+
+{
+  "name": "electronic equipments",
+  "description": "Smartphones"
+}
+
+###
+# group: Category
+# @name Delete Category by ID
+DELETE {{hostUrl}}/category/<CategoryID>
+
+###
+# group: Cart
+# @name Add Item to Cart
+POST {{hostUrl}}/cart/
+Authorization: {{JWT}}
+Content-Type: application/json
+
+{
+  "productID": "<PRODUCT_ID>"
+}
+
+###
+# group: Cart
+# @name Place Order
+POST {{hostUrl}}/order/initiate
+Authorization: {{JWT}}
+
+###
+# group: Cart
+# @name Orders Listing
+GET {{hostUrl}}/order/list
+Authorization: {{JWT}}
