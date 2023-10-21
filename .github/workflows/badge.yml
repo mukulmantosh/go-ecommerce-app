@@ -22,10 +22,10 @@ jobs:
 
       - name: Run Test
         run: |
-          make cover
+          make test
 
       - name: generate Test Coverage
-        run: go test ./... -coverprofile=./cover.out
+        run: make coverage
 
       - name: check Test Coverage
         uses: vladopajic/go-test-coverage@v2
