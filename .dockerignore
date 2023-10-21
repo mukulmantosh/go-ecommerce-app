@@ -1,7 +1,7 @@
 misc
 .idea
 k8s
-http-clients
+postman_httpclient
 README.md
 Makefile
 .gitignore
