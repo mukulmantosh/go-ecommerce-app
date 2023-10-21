@@ -18,7 +18,7 @@ func (s *EchoServer) AddUser(ctx echo.Context) error {
 		var conflictError *common_errors.ConflictError
 		switch {
 		case errors.As(err, &conflictError):
-			return ctx.JSON(http.StatusConflict, map[string]any{"error": err.Error()})
+			return ctx.JSON(http.StatusConflict, map[string]any{"error": conflictError.Error()})
 		default:
 			return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 		}
@@ -73,7 +73,7 @@ func (s *EchoServer) UpdateUser(ctx echo.Context) error {
 		}
 	}
 	if updateUser {
-		return ctx.JSON(http.StatusOK, "User Information Updated!")
+		return ctx.JSON(http.StatusOK, map[string]any{"message": "User Information Updated!"})
 	}
 
 	return ctx.JSON(http.StatusInternalServerError, "Something went wrong !")
