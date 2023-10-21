@@ -1,0 +1,557 @@
+{
+	"info": {
+		"_postman_id": "00b09508-e328-403e-8d53-d30e6b188253",
+		"name": "Ecommerce-Go-App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5196778"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Add User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"mukul\",\r\n  \"password\": \"mukul123\",\r\n  \"first_name\": \"mukul\",\r\n  \"last_name\": \"mantosh\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/user",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/user/{{userId}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User By ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"mukul123456\",\r\n  \"first_name\": \"MUKUL\",\r\n  \"last_name\": \"MANTOSH\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/user/{{userId}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/user/{{userId}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"user",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New User Address",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"address\": \"132, My Street, Kingston, New York\",\r\n  \"city\": \"New York\",\r\n  \"postal_code\": \"12401\",\r\n  \"country\": \"USA\",\r\n  \"mobile\": \"9999999999\",\r\n  \"user_id\": \"{{userId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/user/address",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"user",
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get UserAddress By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/user/address/<AddressID>",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"user",
+								"address",
+								"<AddressID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update UserAddress By ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"address\": \"King Street, Kingston, New York\",\r\n  \"city\": \"NEW YORK\",\r\n  \"postal_code\": \"12401\",\r\n  \"country\": \"United States of America\",\r\n  \"mobile\": \"122345666\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/user/address/<AddressID>",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"user",
+								"address",
+								"<AddressID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update UserAddress By ID Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/user/address/<AddressID>",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"user",
+								"address",
+								"<AddressID>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"mukul\",\r\n    \"password\": \"mukul123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/auth/login",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Add New Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"IPhone 15\",\r\n  \"description\": \"Iphone 15\",\r\n  \"price\": 2999,\r\n  \"category_id\": \"<GET_THE_CATEGORY_ID>\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/products",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/products",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/products/<productID>",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"products",
+								"<productID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product By ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"IPHONE 15\",\r\n    \"description\":\"Newphoria. Dynamic Island. 48MP Main camera with 2x Telephoto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/products/<productID>",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"products",
+								"<productID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/products/<productID>",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"products",
+								"<productID>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Add New Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Electronics\",\r\n  \"description\": \"Electronics - Mobile Devices\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/category",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/category/<CategoryID>",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"category",
+								"<CategoryID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category by ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"electronic equipments\",\r\n    \"description\": \"Smartphones\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/category/<CategoryID>",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"category",
+								"<CategoryID>"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/category/<CategoryID>",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"category",
+								"<CategoryID>"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Add Item to Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productID\": \"<PRODUCT_ID>\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/cart/",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"cart",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Place Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hostUrl}}/order/initiate",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"order",
+								"initiate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Orders Listing",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{hostUrl}}/order/list",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"order",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "hostUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": "2ae1785b-cc89-4182-99dd-fb6361800fb2",
+			"type": "string"
+		},
+		{
+			"key": "JWT",
+			"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibXVrdWwgbWFudG9zaCIsInVzZXJJRCI6IjJhZTE3ODViLWNjODktNDE4Mi05OWRkLWZiNjM2MTgwMGZiMiIsInVzZXJOYW1lIjoibXVrdWwiLCJhZG1pbiI6ZmFsc2UsImV4cCI6MTY5Nzg5MTQ2MX0.3QnaZACj6t0KlKxc5IEQ7h2cWlZULfj1MCgXxuN7erY",
+			"type": "string"
+		}
+	]
+}

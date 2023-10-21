@@ -20,7 +20,7 @@ func loginRoute(s *EchoServer) {
 func cartRoutes(s *EchoServer) {
 	categoryGroup := s.echo.Group("/cart")
 	categoryGroup.Use(echojwt.WithConfig(JWTConfig()))
-	categoryGroup.POST("/add-user", s.CreateNewCart)
+	categoryGroup.POST("/add-user", s.CreateNewCart) // Optional
 	categoryGroup.POST("/", s.AddItemToCart)
 
 }
