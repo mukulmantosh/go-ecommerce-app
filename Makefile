@@ -7,5 +7,7 @@ lint:
 test:
 	@go test -v ./...
 cover:
-	@go test -v ./... -covermode=count -coverpkg=./... -coverprofile coverage.out
+	@go test ./...  -coverpkg=./... -coverprofile ./coverage.out
+
+
 
