@@ -1,5 +1,0 @@
-# curl --location --request DELETE 'localhost:8080/user/address/430106b3-1c47-421f-92aa-ee612d0f8542'
-DELETE localhost:8080/user/address/430106b3-1c47-421f-92aa-ee612d0f8542
-
-###
-

@@ -66,15 +66,15 @@ func (s *EchoServer) UpdateCategory(ctx echo.Context) error {
 
 		switch {
 		case errors.As(err, &notFoundError):
-			return ctx.JSON(http.StatusNotFound, map[string]any{"error": err.Error()})
+			return ctx.JSON(http.StatusNotFound, map[string]any{"error": notFoundError.Error()})
 		case errors.As(err, &conflictError):
-			return ctx.JSON(http.StatusConflict, map[string]any{"error": err.Error()})
+			return ctx.JSON(http.StatusConflict, map[string]any{"error": conflictError.Error()})
 		default:
 			return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 		}
 	}
 	if updateUser {
-		return ctx.JSON(http.StatusOK, "Category Information Updated!")
+		return ctx.JSON(http.StatusOK, map[string]any{"message": "Category Information Updated!"})
 	}
 
 	return ctx.JSON(http.StatusInternalServerError, "Something went wrong !")
