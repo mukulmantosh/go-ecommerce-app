@@ -24,7 +24,7 @@ func (c Client) AddUser(ctx context.Context, user *models.User) (*models.User, e
 	return user, nil
 }
 
-func (c Client) GetUserById(ctx context.Context, ID string) (*models.User, error) {
+func (c Client) GetUserById(ctx context.Context, ID string) (*models.DisplayUser, error) {
 	user := &models.User{}
 	result := c.DB.WithContext(ctx).Preload(clause.Associations).Where(&models.User{ID: ID}).First(&user)
 	if result.Error != nil {
@@ -32,7 +32,13 @@ func (c Client) GetUserById(ctx context.Context, ID string) (*models.User, error
 			return nil, &common_errors.NotFoundError{}
 		}
 	}
-	return user, result.Error
+	customUserDisplay := &models.DisplayUser{
+		ID:        user.ID,
+		Username:  user.Username,
+		FirstName: user.FirstName,
+		LastName:  user.LastName,
+	}
+	return customUserDisplay, result.Error
 }
 
 func (c Client) UpdateUser(ctx context.Context, user *models.User) (bool, error) {

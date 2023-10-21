@@ -18,6 +18,13 @@ type User struct {
 	Cart      Cart          `gorm:"foreignKey:UserID;references:ID" json:"cart"`
 }
 
+type DisplayUser struct {
+	ID        string `gorm:"primaryKey" json:"ID"`
+	Username  string `gorm:"uniqueIndex;size:255" json:"username"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+}
+
 type UserAddress struct {
 	ID         string `gorm:"primaryKey" json:"userAddressId"`
 	Address    string `json:"address"`
