@@ -15,6 +15,7 @@ type Server interface {
 	abstract.UserAddress
 	abstract.Login
 	abstract.Category
+	abstract.Cart
 }
 
 type EchoServer struct {
