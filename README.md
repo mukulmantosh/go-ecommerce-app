@@ -86,6 +86,13 @@ make test
 ```
 ![test-app](./misc/gotest.gif)
 
+
+#### REST Examples
+
+You can find the Postman Collection/HTTP Client for GoLand under `postman_httpclient` directory.
+
+![postman-app](./misc/postman.png)
+
 #### Docker
 
 Image is available in DockerHub https://hub.docker.com/repository/docker/mukulmantosh/go-ecommerce-echo/general
