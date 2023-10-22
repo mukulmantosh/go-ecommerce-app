@@ -95,6 +95,5 @@ You can find the Postman Collection/HTTP Client for GoLand under `postman_httpcl
 
 #### Docker
 
-Image is available in DockerHub https://hub.docker.com/repository/docker/mukulmantosh/go-ecommerce-echo/general
-TODO: make it public
+You can pull the image from [DockerHub](https://hub.docker.com/r/mukulmantosh/go-ecommerce-echo) 
 
