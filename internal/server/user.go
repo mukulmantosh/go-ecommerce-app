@@ -2,6 +2,7 @@ package server
 
 import (
 	"errors"
+	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/generic/common_errors"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/models"
@@ -30,6 +31,9 @@ func (s *EchoServer) AddUser(ctx echo.Context) error {
 
 func (s *EchoServer) GetUserById(ctx echo.Context) error {
 	ID := ctx.Param("id")
+	if len(ID) == 0 {
+		return ctx.JSON(http.StatusBadRequest, map[string]any{"error": "ID Missing"})
+	}
 	user, err := s.DB.GetUserById(ctx.Request().Context(), ID)
 	if err != nil {
 		var notFoundError *common_errors.NotFoundError
@@ -45,6 +49,10 @@ func (s *EchoServer) GetUserById(ctx echo.Context) error {
 
 func (s *EchoServer) UpdateUser(ctx echo.Context) error {
 	ID := ctx.Param("id")
+	if len(ID) == 0 {
+		return ctx.JSON(http.StatusBadRequest, map[string]any{"error": "ID Missing"})
+	}
+
 	user := new(models.User)
 	if err := ctx.Bind(user); err != nil {
 		return ctx.JSON(http.StatusUnsupportedMediaType, map[string]any{"error": err.Error()})
@@ -81,7 +89,11 @@ func (s *EchoServer) UpdateUser(ctx echo.Context) error {
 
 func (s *EchoServer) DeleteUser(ctx echo.Context) error {
 	ID := ctx.Param("id")
+	if len(ID) == 0 {
+		return ctx.JSON(http.StatusBadRequest, map[string]any{"error": "ID Missing"})
+	}
 	err := s.DB.DeleteUser(ctx.Request().Context(), ID)
+	fmt.Println(err)
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 	}

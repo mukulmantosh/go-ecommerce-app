@@ -6,6 +6,7 @@ type User interface {
 	AddUser(ctx echo.Context) error
 	GetUserById(ctx echo.Context) error
 	UpdateUser(ctx echo.Context) error
+	DeleteUser(ctx echo.Context) error
 }
 
 type UserAddress interface {

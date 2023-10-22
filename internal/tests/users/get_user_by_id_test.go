@@ -52,15 +52,16 @@ func TestGetUserById(t *testing.T) {
 		data, _ := io.ReadAll(rec.Body)
 		err := json.Unmarshal(data, &userResp)
 		if err != nil {
-			return
+			t.Error(err)
 		}
 		userId := userResp.Data.UserID
 
-		newReq := httptest.NewRequest(http.MethodGet, "/user/"+userId, nil)
+		newReq := httptest.NewRequest(http.MethodGet, "/user", nil)
 		newReq.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		newRec := httptest.NewRecorder()
 		getContext := e.NewContext(newReq, newRec)
-
+		getContext.SetParamNames("id")
+		getContext.SetParamValues(userId)
 		// Assertions
 		if assert.NoError(t, service.GetUserById(getContext)) {
 			assert.Equal(t, http.StatusOK, newRec.Code)

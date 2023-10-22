@@ -2,6 +2,7 @@ package users
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/go-faker/faker/v4"
 	"github.com/labstack/echo/v4"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/server"
@@ -14,16 +15,10 @@ import (
 	"testing"
 )
 
-func TestUpdateUserById(t *testing.T) {
+func TestDeleteUserById(t *testing.T) {
 	testDB, _ := tests.Setup()
 	type FakeUser struct {
 		Username  string `json:"username" faker:"username"`
-		Password  string `json:"password" faker:"word,unique"`
-		FirstName string `json:"first_name" faker:"first_name"`
-		LastName  string `json:"last_name" faker:"last_name"`
-	}
-
-	type FakeUpdateUser struct {
 		Password  string `json:"password" faker:"word,unique"`
 		FirstName string `json:"first_name" faker:"first_name"`
 		LastName  string `json:"last_name" faker:"last_name"`
@@ -37,7 +32,7 @@ func TestUpdateUserById(t *testing.T) {
 		Data DataObj `json:"data"`
 	}
 
-	t.Run("should update user by id", func(t *testing.T) {
+	t.Run("should delete user by id", func(t *testing.T) {
 		var service = server.NewServer(testDB)
 
 		var customUser FakeUser
@@ -49,6 +44,7 @@ func TestUpdateUserById(t *testing.T) {
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 
+		// Assertions
 		if assert.NoError(t, service.AddUser(c)) {
 			assert.Equal(t, http.StatusCreated, rec.Code)
 		}
@@ -57,23 +53,19 @@ func TestUpdateUserById(t *testing.T) {
 		data, _ := io.ReadAll(rec.Body)
 		err := json.Unmarshal(data, &userResp)
 		if err != nil {
-			return
+			t.Error(err.Error())
 		}
 		userId := userResp.Data.UserID
-
-		var customUpdateUser FakeUpdateUser
-		_ = faker.FakeData(&customUpdateUser)
-		updateUserData, _ := json.Marshal(&customUpdateUser)
-
-		newReq := httptest.NewRequest(http.MethodPut, "/user", strings.NewReader(string(updateUserData)))
-		newReq.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		fmt.Println("/user/" + userId)
+		newReq := httptest.NewRequest(http.MethodGet, "/user", nil)
 		newRec := httptest.NewRecorder()
 		getContext := e.NewContext(newReq, newRec)
 		getContext.SetParamNames("id")
 		getContext.SetParamValues(userId)
-		if assert.NoError(t, service.UpdateUser(getContext)) {
-			assert.Equal(t, http.StatusOK, newRec.Code)
-			assert.Equal(t, "{\"message\":\"User Information Updated!\"}\n", newRec.Body.String())
+
+		if assert.NoError(t, service.DeleteUser(getContext)) {
+			fmt.Println(newRec.Body.String())
+			assert.Equal(t, http.StatusResetContent, newRec.Code)
 		}
 		tests.Teardown(testDB)
 	})
