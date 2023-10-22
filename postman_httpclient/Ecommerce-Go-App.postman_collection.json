@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "00b09508-e328-403e-8d53-d30e6b188253",
+		"_postman_id": "d60adc8d-cde1-42fa-b8db-657bdd885b03",
 		"name": "Ecommerce-Go-App",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "5196778"
@@ -173,7 +173,7 @@
 					"response": []
 				},
 				{
-					"name": "Update UserAddress By ID Copy",
+					"name": "Delete User Address By ID",
 					"request": {
 						"method": "DELETE",
 						"header": [],

@@ -1,0 +1,120 @@
+package users
+
+import (
+	"encoding/json"
+	"github.com/go-faker/faker/v4"
+	"github.com/labstack/echo/v4"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/server"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/tests"
+	"github.com/mukulmantosh/go-ecommerce-app/internal/utils"
+	"github.com/stretchr/testify/assert"
+	"io"
+	"net/http"
+	"net/http/httptest"
+	"strings"
+	"testing"
+)
+
+func TestDeleteUserAddress(t *testing.T) {
+	testDB, _ := tests.Setup()
+	type FakeUser struct {
+		Username  string `json:"username" faker:"username"`
+		Password  string `json:"password" faker:"word,unique"`
+		FirstName string `json:"first_name" faker:"first_name"`
+		LastName  string `json:"last_name" faker:"last_name"`
+	}
+
+	type FakeUserAddress struct {
+		Address    string `json:"address"`
+		City       string `json:"city"`
+		PostalCode string `json:"postal_code"`
+		Country    string `json:"country"`
+		Mobile     string `json:"mobile"`
+		UserId     string `json:"user_id"`
+	}
+
+	type DataObj struct {
+		UserID  string `json:"user_id"`
+		Message string `json:"message"`
+	}
+	type UserResponse struct {
+		Data DataObj `json:"data"`
+	}
+
+	type UserAddressDataObj struct {
+		UserAddressID string `json:"userAddressId"`
+		Address       string `json:"address"`
+		PostalCode    string `json:"postal_code"`
+		Country       string `json:"country"`
+		Mobile        string `json:"mobile"`
+		UserId        string `json:"user_id"`
+	}
+
+	t.Run("delete user address by id", func(t *testing.T) {
+		var service = server.NewServer(testDB)
+
+		var customUser FakeUser
+		_ = faker.FakeData(&customUser)
+		out, _ := json.Marshal(&customUser)
+		e := echo.New()
+		req := httptest.NewRequest(http.MethodPost, "/user", strings.NewReader(string(out)))
+		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		rec := httptest.NewRecorder()
+		c := e.NewContext(req, rec)
+
+		if assert.NoError(t, service.AddUser(c)) {
+			assert.Equal(t, http.StatusCreated, rec.Code)
+		}
+
+		var userResp UserResponse
+		data, _ := io.ReadAll(rec.Body)
+		err := json.Unmarshal(data, &userResp)
+		if err != nil {
+			t.Error(err)
+		}
+		userId := userResp.Data.UserID
+
+		userAddr := FakeUserAddress{
+			Address:    "132, My Street, Kingston, New York",
+			City:       "New York",
+			PostalCode: "12401",
+			Country:    "USA",
+			Mobile:     "9898989898",
+			UserId:     userId,
+		}
+
+		// Serialize the struct to a JSON string
+		userAddressJSON, err := utils.StructToJSON(userAddr)
+		if err != nil {
+			t.Error(err.Error())
+		}
+
+		newReq := httptest.NewRequest(http.MethodPost, "/user/address", strings.NewReader(userAddressJSON))
+		newReq.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		newRec := httptest.NewRecorder()
+		getContext := e.NewContext(newReq, newRec)
+
+		if assert.NoError(t, service.AddUserAddress(getContext)) {
+			assert.Equal(t, http.StatusCreated, newRec.Code)
+		}
+
+		var userAddressResp UserAddressDataObj
+		dataAddr, _ := io.ReadAll(newRec.Body)
+		err = json.Unmarshal(dataAddr, &userAddressResp)
+		userAddressId := userAddressResp.UserAddressID
+
+		newAddrReq := httptest.NewRequest(http.MethodDelete, "/user/address", nil)
+		newAddrReq.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		newAddrRec := httptest.NewRecorder()
+		DeleteAddrContext := e.NewContext(newAddrReq, newAddrRec)
+		DeleteAddrContext.SetParamNames("id")
+		DeleteAddrContext.SetParamValues(userAddressId)
+
+		if assert.NoError(t, service.DeleteUserAddress(DeleteAddrContext)) {
+			assert.Equal(t, http.StatusResetContent, newAddrRec.Code)
+		}
+
+		tests.Teardown(testDB)
+	})
+
+}
