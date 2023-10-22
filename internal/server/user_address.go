@@ -49,6 +49,9 @@ func (s *EchoServer) GetUserAddressById(ctx echo.Context) error {
 
 func (s *EchoServer) UpdateUserAddress(ctx echo.Context) error {
 	ID := ctx.Param("id")
+	if len(ID) == 0 {
+		return ctx.JSON(http.StatusBadRequest, map[string]any{"error": "ID Missing"})
+	}
 	userAddress := new(models.UserAddress)
 	if err := ctx.Bind(userAddress); err != nil {
 		return ctx.JSON(http.StatusUnsupportedMediaType, map[string]any{"error": err.Error()})
@@ -85,6 +88,9 @@ func (s *EchoServer) UpdateUserAddress(ctx echo.Context) error {
 
 func (s *EchoServer) DeleteUserAddress(ctx echo.Context) error {
 	ID := ctx.Param("id")
+	if len(ID) == 0 {
+		return ctx.JSON(http.StatusBadRequest, map[string]any{"error": "ID Missing"})
+	}
 	err := s.DB.DeleteUserAddress(ctx.Request().Context(), ID)
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
