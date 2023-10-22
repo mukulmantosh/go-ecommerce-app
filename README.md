@@ -84,7 +84,7 @@ make build
 ```bash
 make test
 ```
-![test-app](./misc/test-app.png)
+![test-app](./misc/gotest.gif)
 
 #### Docker
 
