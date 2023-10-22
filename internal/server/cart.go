@@ -9,26 +9,6 @@ import (
 	"net/http"
 )
 
-func (s *EchoServer) CreateNewCart(ctx echo.Context) error {
-	cart := new(models.Cart)
-	if err := ctx.Bind(cart); err != nil {
-		return ctx.JSON(http.StatusUnsupportedMediaType, map[string]any{"error": err.Error()})
-	}
-	cart, err := s.DB.NewCartForUser(ctx.Request().Context(), cart)
-	if err != nil {
-		var conflictError *common_errors.ConflictError
-		switch {
-		case errors.As(err, &conflictError):
-			return ctx.JSON(http.StatusConflict, map[string]any{"error": err.Error()})
-		default:
-			return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
-		}
-	}
-	return ctx.JSON(http.StatusCreated,
-		map[string]interface{}{"message": "New Cart Created!",
-			"data": map[string]interface{}{"cart_id": cart.ID}})
-}
-
 func (s *EchoServer) AddItemToCart(ctx echo.Context) error {
 	product := new(models.ProductParams)
 	user := ctx.Get("user").(*jwt.Token)

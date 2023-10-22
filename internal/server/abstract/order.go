@@ -5,7 +5,6 @@ import (
 )
 
 type Cart interface {
-	CreateNewCart(ctx echo.Context) error
 	AddItemToCart(ctx echo.Context) error
 	NewOrder(ctx echo.Context) error
 	ListOrders(ctx echo.Context) error
