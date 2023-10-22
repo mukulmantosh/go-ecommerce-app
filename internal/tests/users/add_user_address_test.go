@@ -2,7 +2,6 @@ package users
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/go-faker/faker/v4"
 	"github.com/labstack/echo/v4"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/server"
@@ -85,8 +84,7 @@ func TestAddUserAddress(t *testing.T) {
 		// Serialize the struct to a JSON string
 		userAddressJSON, err := structToJSONString(userAddr)
 		if err != nil {
-			fmt.Println("Error:", err)
-			return
+			t.Error(err.Error())
 		}
 
 		newReq := httptest.NewRequest(http.MethodPost, "/user/address", strings.NewReader(userAddressJSON))
