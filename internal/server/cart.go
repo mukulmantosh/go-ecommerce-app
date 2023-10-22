@@ -2,32 +2,12 @@ package server
 
 import (
 	"errors"
-	"fmt"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v4"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/generic/common_errors"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/models"
 	"net/http"
-	"os"
 )
-
-func ParseJWTToken(tokenString string) (*models.CustomJWTClaims, error) {
-	// Parse the JWT token with custom claims
-	token, err := jwt.ParseWithClaims(tokenString, &models.CustomJWTClaims{}, func(token *jwt.Token) (interface{}, error) {
-		// Replace this with your own secret key or public key (if using asymmetric signing)
-		return []byte(os.Getenv("JWT_SECRET")), nil
-	})
-
-	if err != nil {
-		return nil, err
-	}
-
-	if claims, ok := token.Claims.(*models.CustomJWTClaims); ok && token.Valid {
-		return claims, nil
-	}
-
-	return nil, fmt.Errorf("invalid token")
-}
 
 func (s *EchoServer) CreateNewCart(ctx echo.Context) error {
 	cart := new(models.Cart)

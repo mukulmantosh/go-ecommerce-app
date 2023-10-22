@@ -5,16 +5,17 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v4"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/generic/common_errors"
-	"github.com/mukulmantosh/go-ecommerce-app/internal/models"
 	"net/http"
 )
 
 func (s *EchoServer) NewOrder(ctx echo.Context) error {
 	user := ctx.Get("user").(*jwt.Token)
-	claims := user.Claims.(*models.CustomJWTClaims)
+	//claims := user.Claims.(*models.CustomJWTClaims)
+	claims, err := ParseJWTToken(user.Raw)
+
 	userId := claims.UserID
 
-	_, err := s.DB.OrderPlacement(ctx.Request().Context(), userId)
+	_, err = s.DB.OrderPlacement(ctx.Request().Context(), userId)
 	if err != nil {
 		var conflictError *common_errors.ConflictError
 		var cartEmptyError *common_errors.CartEmptyError
@@ -33,7 +34,8 @@ func (s *EchoServer) NewOrder(ctx echo.Context) error {
 
 func (s *EchoServer) ListOrders(ctx echo.Context) error {
 	user := ctx.Get("user").(*jwt.Token)
-	claims := user.Claims.(*models.CustomJWTClaims)
+	//claims := user.Claims.(*models.CustomJWTClaims)
+	claims, err := ParseJWTToken(user.Raw)
 	userId := claims.UserID
 
 	orderList, err := s.DB.OrderList(ctx.Request().Context(), userId)
