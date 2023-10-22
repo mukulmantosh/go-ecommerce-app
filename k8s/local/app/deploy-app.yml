@@ -18,8 +18,8 @@ spec:
           persistentVolumeClaim:
             claimName: postgres-pvc
       containers:
-        - image: ecommerce
-          imagePullPolicy: Never
+        - image: mukulmantosh/go-ecommerce-echo:1.0
+          imagePullPolicy: Always
           name: go-ecomm-container
           envFrom:
             - configMapRef:

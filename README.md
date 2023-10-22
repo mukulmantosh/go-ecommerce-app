@@ -95,5 +95,13 @@ You can find the Postman Collection/HTTP Client for GoLand under `postman_httpcl
 
 #### Docker
 
-You can pull the image from [DockerHub](https://hub.docker.com/r/mukulmantosh/go-ecommerce-echo) 
+You have the option to retrieve the image from [DockerHub](https://hub.docker.com/r/mukulmantosh/go-ecommerce-echo).
+
+
+#### Running Application in Local Kubernetes
+
+Proceed with the instructions to launch your
+application within a local Kubernetes cluster, 
+such as Docker Desktop or Minikube.
+![k8s-terminal](./misc/k8s.png)
 
