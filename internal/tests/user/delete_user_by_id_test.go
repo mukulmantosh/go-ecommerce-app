@@ -56,7 +56,6 @@ func TestDeleteUserById(t *testing.T) {
 			t.Error(err.Error())
 		}
 		userId := userResp.Data.UserID
-		fmt.Println("/user/" + userId)
 		newReq := httptest.NewRequest(http.MethodGet, "/user", nil)
 		newRec := httptest.NewRecorder()
 		getContext := e.NewContext(newReq, newRec)

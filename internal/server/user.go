@@ -2,7 +2,6 @@ package server
 
 import (
 	"errors"
-	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/generic/common_errors"
 	"github.com/mukulmantosh/go-ecommerce-app/internal/models"
@@ -93,7 +92,6 @@ func (s *EchoServer) DeleteUser(ctx echo.Context) error {
 		return ctx.JSON(http.StatusBadRequest, map[string]any{"error": "ID Missing"})
 	}
 	err := s.DB.DeleteUser(ctx.Request().Context(), ID)
-	fmt.Println(err)
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, map[string]any{"error": err.Error()})
 	}
