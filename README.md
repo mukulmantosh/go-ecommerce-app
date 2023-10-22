@@ -3,7 +3,7 @@
 
 
 ![Workflow](https://github.com/mukulmantosh/go-ecommerce-app/actions/workflows/badge.yml/badge.svg)
-![Coverage](https://img.shields.io/badge/Coverage-20.4%25-red)
+![Coverage](https://img.shields.io/badge/Coverage-25.2%25-red)
 
 We intend to develop an e-commerce application with a REST
 architecture using the Echo framework. Echo is a Go web framework
