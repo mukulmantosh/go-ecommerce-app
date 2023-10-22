@@ -31,6 +31,9 @@ func (s *EchoServer) AddUserAddress(ctx echo.Context) error {
 
 func (s *EchoServer) GetUserAddressById(ctx echo.Context) error {
 	ID := ctx.Param("id")
+	if len(ID) == 0 {
+		return ctx.JSON(http.StatusBadRequest, map[string]any{"error": "ID Missing"})
+	}
 	userAddress, err := s.DB.GetUserAddressById(ctx.Request().Context(), ID)
 	if err != nil {
 		var notFoundError *common_errors.NotFoundError

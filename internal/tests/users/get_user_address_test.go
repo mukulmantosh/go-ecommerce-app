@@ -15,7 +15,7 @@ import (
 	"testing"
 )
 
-func TestAddUserAddress(t *testing.T) {
+func TestGetUserAddress(t *testing.T) {
 	testDB, _ := tests.Setup()
 	type FakeUser struct {
 		Username  string `json:"username" faker:"username"`
@@ -41,7 +41,16 @@ func TestAddUserAddress(t *testing.T) {
 		Data DataObj `json:"data"`
 	}
 
-	t.Run("create new user address", func(t *testing.T) {
+	type UserAddressDataObj struct {
+		UserAddressID string `json:"userAddressId"`
+		Address       string `json:"address"`
+		PostalCode    string `json:"postal_code"`
+		Country       string `json:"country"`
+		Mobile        string `json:"mobile"`
+		UserId        string `json:"user_id"`
+	}
+
+	t.Run("get user address by id", func(t *testing.T) {
 		var service = server.NewServer(testDB)
 
 		var customUser FakeUser
@@ -61,7 +70,7 @@ func TestAddUserAddress(t *testing.T) {
 		data, _ := io.ReadAll(rec.Body)
 		err := json.Unmarshal(data, &userResp)
 		if err != nil {
-			return
+			t.Error(err)
 		}
 		userId := userResp.Data.UserID
 
@@ -88,6 +97,23 @@ func TestAddUserAddress(t *testing.T) {
 		if assert.NoError(t, service.AddUserAddress(getContext)) {
 			assert.Equal(t, http.StatusCreated, newRec.Code)
 		}
+
+		var userAddressResp UserAddressDataObj
+		dataAddr, _ := io.ReadAll(newRec.Body)
+		err = json.Unmarshal(dataAddr, &userAddressResp)
+		userAddressId := userAddressResp.UserAddressID
+
+		newAddrReq := httptest.NewRequest(http.MethodGet, "/user/address", nil)
+		newAddrReq.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		newAddrRec := httptest.NewRecorder()
+		getAddrContext := e.NewContext(newAddrReq, newAddrRec)
+		getAddrContext.SetParamNames("id")
+		getAddrContext.SetParamValues(userAddressId)
+
+		if assert.NoError(t, service.GetUserAddressById(getAddrContext)) {
+			assert.Equal(t, http.StatusOK, newAddrRec.Code)
+		}
+
 		tests.Teardown(testDB)
 	})
 
