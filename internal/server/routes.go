@@ -3,6 +3,7 @@ package server
 import echojwt "github.com/labstack/echo-jwt/v4"
 
 func (s *EchoServer) registerRoutes() {
+	healthCheckRoute(s)
 	productRoutes(s)
 	categoryRoutes(s)
 	userRoutes(s)
@@ -10,6 +11,10 @@ func (s *EchoServer) registerRoutes() {
 	loginRoute(s)
 	orderRoutes(s)
 
+}
+
+func healthCheckRoute(s *EchoServer) {
+	s.echo.GET("/health", s.HealthCheck)
 }
 
 func loginRoute(s *EchoServer) {
