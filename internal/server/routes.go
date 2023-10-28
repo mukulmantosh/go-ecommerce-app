@@ -14,7 +14,7 @@ func (s *EchoServer) registerRoutes() {
 }
 
 func healthCheckRoute(s *EchoServer) {
-	s.echo.GET("/health", s.HealthCheck)
+	s.echo.GET("", s.HealthCheck)
 }
 
 func loginRoute(s *EchoServer) {
