@@ -35,3 +35,12 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "500m"
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 3
+
+
