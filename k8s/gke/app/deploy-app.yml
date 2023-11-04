@@ -14,7 +14,7 @@ spec:
         app: go-ecommerce-app
     spec:
       containers:
-        - image: asia-south1-docker.pkg.dev/invertible-now-401505/go-ecommerce/go-ecommerce:1.0
+        - image: <DOCKER_IMAGE_URL>
           imagePullPolicy: Always
           name: go-ecomm-container
           envFrom:
