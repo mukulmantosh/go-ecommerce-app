@@ -5,4 +5,4 @@ metadata:
   namespace: go-ecommerce
 spec:
   type: ExternalName
-  externalName: 10.15.112.3
+  externalName: <DATABASE_IP_ADDRESS>
