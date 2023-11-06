@@ -4,10 +4,11 @@ metadata:
   name: app-cm
   namespace: go-ecommerce
 data:
-  JWT_SECRET: "secret"
-  DB_HOST: "database-service"
-  DB_USERNAME: "postgres"
-  DB_PASSWORD: "sample123"
-  DB_NAME: "ecommerce"
-  DB_PORT: "5432"
+  JWT_SECRET: "*********"               # Provide Random Secret Text
+  DB_HOST: "database-service"           # Name of service db-service (refer db-service.yml)
+  DB_USERNAME: "**********"             # Database Username
+  DB_PASSWORD: "*********"              # Database Password
+  DB_NAME: "**********"                 # Database Name
+  DB_PORT: "*********"                  # Database Port
 
+# Production Recommend: Kubernetes Secrets, External Secret Management Tool.

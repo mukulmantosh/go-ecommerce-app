@@ -6,6 +6,6 @@ metadata:
   labels:
     app: postgres
 data:
-  POSTGRES_DB: "ecommerce"
-  POSTGRES_USER: "sample"
-  POSTGRES_PASSWORD: "sample123"
+  POSTGRES_DB: "***********"              # DB NAME
+  POSTGRES_USER: "***********"            # DB USERNAME
+  POSTGRES_PASSWORD: "***********"        # DB PASSWORD
