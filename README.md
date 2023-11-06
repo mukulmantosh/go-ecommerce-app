@@ -87,21 +87,24 @@ make test
 ![test-app](./misc/gotest.gif)
 
 
-#### REST Examples
+## REST Examples
 
 You can find the Postman Collection/HTTP Client for GoLand under `postman_httpclient` directory.
 
 ![postman-app](./misc/postman.png)
 
-#### Docker
+## Docker
 
 You have the option to retrieve the image from [DockerHub](https://hub.docker.com/r/mukulmantosh/go-ecommerce-echo).
 
 
-#### Running Application in Local Kubernetes
+### Running Application in Local Kubernetes
 
 Proceed with the instructions to launch your
 application within a local Kubernetes cluster, 
 such as Docker Desktop or Minikube.
+
+Before proceeding, make sure to update the ConfigMap.
+
 ![k8s-terminal](./misc/k8s.png)
 
