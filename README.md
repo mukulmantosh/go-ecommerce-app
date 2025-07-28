@@ -21,11 +21,11 @@ Before starting up this project, make sure you have the necessary dependencies i
 
 ### Software Installation
 
-- [x] [Go](https://go.dev/) - Go is an open source programming language that makes it simple to build secure, scalable systems.
+- [x] [Go](https://go.dev/) - Go is an open-source programming language that makes it simple to build secure, scalable systems.
 
-- [x] [Docker](https://www.docker.com/) - Docker helps developers bring their ideas to life by conquering the complexity of app development.
+- [x] [Docker—](https://www.docker.com/) Docker helps developers bring their ideas to life by conquering the complexity of app development.
 
-- [x] [PostgreSQL](https://www.postgresql.org/) - The World's Most Advanced Open Source Relational Database
+- [x] [PostgreSQL—](https://www.postgresql.org/)The World's Most Advanced Open Source Relational Database
 
 - [x] [golangci-lint](https://golangci-lint.run/) - is a fast Go linters runner. It runs linters in parallel, uses caching, supports yaml config, etc.  
 
